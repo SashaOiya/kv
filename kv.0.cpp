@@ -11,7 +11,7 @@ int main()
     int D, x_1, x_2;
     a = vvod_1();
     if ( a == 0 )
-        printf ( "не квадратичное" );
+        printf ( "Г­ГҐ ГЄГўГ Г¤Г°Г ГІГЁГ·Г­Г®ГҐ" );
     b = vvod_2();
     c = vvod_3();
     D = b * b - 4 * a * c;
