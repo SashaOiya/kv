@@ -5,7 +5,7 @@
 double vvod ();
 
 int main () {
-    double a,b,c;      /* коэффициенты : ax^2 + bx + c = 0*/
+    double a,b,c;      /* ГЄГ®ГЅГґГґГЁГ¶ГЁГҐГ­ГІГ» : ax^2 + bx + c = 0*/
     double D, x_1, x_2;
     a = vvod();
     if ( a == 0 )
@@ -24,17 +24,17 @@ double vvod () {
     int c, sign = 1;
     double s = 0;
     int ten = 1;
-    while ( ( c = getchar() ) == ' ' || c == '\t' )     /* пропускаем пробелы и табуляции */
+    while ( ( c = getchar() ) == ' ' || c == '\t' )     /* ГЇГ°Г®ГЇГіГ±ГЄГ ГҐГ¬ ГЇГ°Г®ГЎГҐГ«Г» ГЁ ГІГ ГЎГіГ«ГїГ¶ГЁГЁ */
         ;
-    if ( c == '-' ) {       /* определяем знак */
+    if ( c == '-' ) {       /* Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬ Г§Г­Г ГЄ */
         sign = -1;
         c = getchar();
     }
-    for ( ; isdigit (c); c = getchar() )        /* вводим целую часть */
+    for ( ; isdigit (c); c = getchar() )        /* ГўГўГ®Г¤ГЁГ¬ Г¶ГҐГ«ГіГѕ Г·Г Г±ГІГј */
         s = s * 10 + ( c - '0' );
     if ( c == '.' )
         c = getchar() ;
-    for ( ; isdigit(c); c = getchar() ) {       /* вводим дробную часть, если есть */
+    for ( ; isdigit(c); c = getchar() ) {       /* ГўГўГ®Г¤ГЁГ¬ Г¤Г°Г®ГЎГ­ГіГѕ Г·Г Г±ГІГј, ГҐГ±Г«ГЁ ГҐГ±ГІГј */
         s = s * 10 + ( c - '0' );
         ten = ten * 10;
     }
