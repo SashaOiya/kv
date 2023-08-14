@@ -1,83 +1,138 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <cmath>
 
-int on = 1;
+enum num_roots {
+    root_zero,
+    one_root,
+    two_roots,
+    root_all
+};
 
-void input( float *, float *, float * );
-void algorithm( float ,float , float , float *, float * );
-void output( float *, float* );
+struct Coeff_t {
+    double a = 0;
+    double b = 0;
+    double c = 0;
+};
+
+double get_one_coeff ( );
+Coeff_t get_all_coeff ( Coeff_t func_coeff );
+int solve ( double *func_coeff_a, double *func_coeff_b, double *func_coeff_c, float *x1, float *x2 );
+void output_coeff ( float *x1, float *x2, int solution );
 
 int main()
 {
-    float a, b, c;      /* coefficients : ax^2 + bx + c = 0*/
-    a = b = c = 0;
-
-    input( &a, &b, &c );
+    struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
+    func_coeff = get_all_coeff ( func_coeff );
 
     float x1, x2;
-    x1 = x2 = 0;       /*проблемы с выводом несуществующий корней*/
+    x1 = x2 = 0;
 
-    algorithm( a, b, c, &x1, &x2 );
-
-    output( &x1, &x2 );
+    int solution = solve ( &func_coeff.a, &func_coeff.b, &func_coeff.c, &x1, &x2 );
+    output_coeff ( &x1, &x2, solution );
 
     return 0;
 }
 
-void input( float *a, float *b, float *c )
+void get_one_coeff ( double *func_coeff )
 {
-    printf ( "A = " );
-    scanf ( "%f", a );
+    int c, i, indicator = 0;
+    i = 0;
+    char s[100];
 
-    printf ( "B = " );
-    scanf ( "%f", b );
+    do {
+        while ( i > 0 ) {
+            s[--i] = 0;
+        }
 
-    printf ( "C = " );
-    scanf ( "%f", c );
+        for ( i = 0, indicator = 0; ( c = getchar () ) != '\n'; ++i ) {
+            if ( isdigit ( c ) || c == '.' )
+            {
+                s[i] = c;
+            }
+            else if ( isalpha ( c ) || c == ' ' || c == '\t'  ) {
+                indicator = 1;
+            }
+        }
+        if ( indicator == 1 ) {
+            printf ( "incorrect input\n" );
+        }
+    } while ( indicator == 1 );
+
+    *func_coeff = atof(s);
+
 }
 
-void algorithm ( float a,float b, float c, float *x1, float *x2 )
+Coeff_t get_all_coeff ( Coeff_t func_coeff )
 {
-    if ( a == 0 )
-    {
-        printf ( "non-quadratic function : \n" );
+    get_one_coeff ( &func_coeff.a );
+    printf ( "A = %g\n", func_coeff.a );
 
-        if ( ( b != 0 && c != 0 ) || ( b != 0 && c == 0 ) ) {
-            *x1 = *x2 = -c / b ;
+    get_one_coeff ( &func_coeff.b );
+    printf ( "B = %g\n", func_coeff.b );
+
+    get_one_coeff ( &func_coeff.c );
+    printf ( "C = %g\n", func_coeff.c );
+
+    return func_coeff;
+}
+
+int solve ( double *func_coeff_a, double *func_coeff_b, double *func_coeff_c, float *x1, float *x2 )
+{
+    enum num_roots volume;
+
+    if ( *func_coeff_a == 0 )
+    {
+        if ( *func_coeff_b != 0 && ( *func_coeff_c != 0 || *func_coeff_c == 0 ) ) {
+            *x1 = *x2 = -*func_coeff_c / *func_coeff_b;
+
+            return one_root;     // b = 0
         }
-        else if ( b == 0 && c != 0 ) {
-            printf ( "zero roots ");
-            extern int on;
-            on = 0;
+        else if ( *func_coeff_b == 0 && *func_coeff_c != 0 ) {
+
+            return root_zero;
         }
         else {
-            printf ( "all numbers" );
+
+            return root_all;
         }
     }
     else
     {
-        float D = pow( b, 2 ) - 4 * a * c;
+        float D = pow ( *func_coeff_b, 2 ) - 4 * *func_coeff_a * *func_coeff_c;
 
         if ( D < 0 ) {
-            printf ( "zero roots" );
-            on = 0;
+
+            return root_zero;
         }
         else {
-            *x1 = ( -b - sqrt(D) ) / ( 2 * a );
-            *x2 = ( -b + sqrt(D) ) / ( 2 * a );
+            *x1 = ( -*func_coeff_b - sqrt(D) ) / ( 2 * *func_coeff_a );
+            *x2 = ( -*func_coeff_b + sqrt(D) ) / ( 2 * *func_coeff_a );
         }
     }
+
+    return two_roots;
 }
 
-void output( float *x1, float *x2 )
+void output_coeff ( float *x1, float *x2, int solution )
 {
-    extern int n;
+    enum num_roots volume;
 
-    if ( *x1 == *x2  && on == 1 ) {
+    if ( solution == root_zero ) {
+        printf ( "zero roots" );
+    }
+    else if ( solution == one_root ) {
         printf ( "one root : x = %g", *x1 );
     }
-    else if ( *x1 != *x2 && on == 1 ) {
+    else if ( *x1 == *x2 ) {
+        printf ( "one root : x = %g", *x2 );
+    }
+    else if ( solution == two_roots ) {
         printf ( "roots : x1 = %g\tx2 = %g", *x1, *x2 );
     }
+    else if ( solution == root_all ) {
+        printf ( "all numbers" );
+    }
+
 }
