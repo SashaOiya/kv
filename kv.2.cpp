@@ -1,13 +1,21 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <stdlib.h>              // error 1) nullptr +
+#include <ctype.h>               //         2)
 #include <cmath>
+#include <stdarg.h>
+#include <string.h>
+#include <iostream>
 
-enum num_roots {
-    root_zero,
-    one_root,
-    two_roots,
-    root_all
+#define DEBUG
+
+#ifdef DEBUG        // препроцессор должен сразу компилировать, а не сначала препроц., а потом комп.
+    #define OUTPUT_ERROR(a) if( a == nullptr) { printf( "line number %d\n", __LINE__ ); abort(); }
+#endif
+enum N_Roots_t {
+    ROOT_ZERO,
+    ONE_ROOT,
+    TWO_ROOTS,
+    ROOTS_ALL
 };
 
 struct Coeff_t {
@@ -16,123 +24,182 @@ struct Coeff_t {
     double c = 0;
 };
 
-double get_one_coeff ( );
-Coeff_t get_all_coeff ( Coeff_t func_coeff );
-int solve ( double *func_coeff_a, double *func_coeff_b, double *func_coeff_c, float *x1, float *x2 );
-void output_coeff ( float *x1, float *x2, int solution );
+struct Roots_t {                 //
+    double x1 = 0;
+    double x2 = 0;
+};
+
+void output_error ( double *func_coeff );
+void get_one_coeff ( double *func_coeff);
+void input_coeffs ( Coeff_t *func_coeff );
+int solve ( Coeff_t *func_coeff, Roots_t *roots );
+void output_coeff ( Roots_t *roots, int n_roots );
+void print_duck ( int n_duck );
 
 int main()
 {
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
-    func_coeff = get_all_coeff ( func_coeff );
+    input_coeffs ( &func_coeff );    //
 
-    float x1, x2;
-    x1 = x2 = 0;
+    struct Roots_t roots;
 
-    int solution = solve ( &func_coeff.a, &func_coeff.b, &func_coeff.c, &x1, &x2 );
-    output_coeff ( &x1, &x2, solution );
+    int n_roots = solve ( &func_coeff, &roots );
+
+    OUTPUT_ERROR ( &func_coeff.a )
+    OUTPUT_ERROR ( &func_coeff.b )
+    OUTPUT_ERROR ( &func_coeff.c )
+
+    output_coeff ( &roots, n_roots );       //
 
     return 0;
 }
 
-void get_one_coeff ( double *func_coeff )
+void get_one_coeff ( double *func_coeff )//, double **func_coeff_p )
 {
-    int c, i, indicator = 0;
-    i = 0;
-    char s[100];
+    bool indicator = 0;
+    static char buf[100];    //wtf
+    static int n_duck = 0;
 
     do {
-        while ( i > 0 ) {
-            s[--i] = 0;
-        }
+        memset ( buf, 0, sizeof ( buf ) );
 
-        for ( i = 0, indicator = 0; ( c = getchar () ) != '\n'; ++i ) {
-            if ( isdigit ( c ) || c == '.' )
-            {
-                s[i] = c;
+        int i, num, c;
+
+        for ( i = 0, indicator = 0, num = 0; ( c = getchar () ) != '\n' ; ++i ) {
+            if ( isdigit ( c ) || ( i == 0 && c == '-' ) ) {
+                buf[i] = c;
             }
-            else if ( isalpha ( c ) || c == ' ' || c == '\t'  ) {
+            else if ( c == '.' && num == 0 ) {
+                    buf[i] = c;
+                    ++num;
+            }
+            else {
                 indicator = 1;
             }
         }
         if ( indicator == 1 ) {
-            printf ( "incorrect input\n" );
+            printf ( "incorrect input\t\t" );
+            ++n_duck;
+            print_duck ( n_duck );
         }
     } while ( indicator == 1 );
 
-    *func_coeff = atof(s);
+    *func_coeff = atof(buf);
 
+    //*func_coeff_p = nullptr;
 }
 
-Coeff_t get_all_coeff ( Coeff_t func_coeff )
+void input_coeffs ( Coeff_t *func_coeff )
 {
-    get_one_coeff ( &func_coeff.a );
-    printf ( "A = %g\n", func_coeff.a );
+    //double *func_coeff_a = &func_coeff->a;          // почему сразу нельзя &(&...)
+    //double **func_coeff_p = &( func_coeff_a );
 
-    get_one_coeff ( &func_coeff.b );
-    printf ( "B = %g\n", func_coeff.b );
+    get_one_coeff ( &func_coeff->a );
+    printf ( "A = %g\n", func_coeff->a );
+    OUTPUT_ERROR( &func_coeff->a )
 
-    get_one_coeff ( &func_coeff.c );
-    printf ( "C = %g\n", func_coeff.c );
+    get_one_coeff ( &func_coeff->b );
+    printf ( "B = %g\n", func_coeff->b );
+    OUTPUT_ERROR( &func_coeff->b )
 
-    return func_coeff;
+    get_one_coeff ( &func_coeff->c );
+    printf ( "C = %g\n", func_coeff->c );
+    OUTPUT_ERROR( &func_coeff->c )
 }
 
-int solve ( double *func_coeff_a, double *func_coeff_b, double *func_coeff_c, float *x1, float *x2 )
+int solve ( Coeff_t *func_coeff, Roots_t *roots )
 {
-    enum num_roots volume;
 
-    if ( *func_coeff_a == 0 )
+    if ( func_coeff->a == 0 )
     {
-        if ( *func_coeff_b != 0 && ( *func_coeff_c != 0 || *func_coeff_c == 0 ) ) {
-            *x1 = *x2 = -*func_coeff_c / *func_coeff_b;
+        if ( func_coeff->b != 0 ) {
+            roots->x1 = roots->x2 = -func_coeff->c / func_coeff->b;
 
-            return one_root;     // b = 0
+            return ONE_ROOT;
         }
-        else if ( *func_coeff_b == 0 && *func_coeff_c != 0 ) {
+        else if ( func_coeff->b == 0 && func_coeff->c != 0 ) {
 
-            return root_zero;
+            return ROOT_ZERO;
         }
         else {
 
-            return root_all;
+            return ROOTS_ALL;
         }
     }
     else
     {
-        float D = pow ( *func_coeff_b, 2 ) - 4 * *func_coeff_a * *func_coeff_c;
+        float D = func_coeff->b * func_coeff->b - 4 * func_coeff->a * func_coeff->c;
 
         if ( D < 0 ) {
 
-            return root_zero;
+            return ROOT_ZERO;
         }
-        else {
-            *x1 = ( -*func_coeff_b - sqrt(D) ) / ( 2 * *func_coeff_a );
-            *x2 = ( -*func_coeff_b + sqrt(D) ) / ( 2 * *func_coeff_a );
+        else if ( D > 0 ) {
+            roots->x1 = ( -func_coeff->b - sqrt(D) ) / ( 2 * func_coeff->a );
+            roots->x2 = ( -func_coeff->b + sqrt(D) ) / ( 2 * func_coeff->a );
+        }
+        else if ( D == 0 ) {
+            roots->x1 = roots->x2 = -func_coeff->b / ( 2 * func_coeff->a );
+
+            return ONE_ROOT;
         }
     }
 
-    return two_roots;
+    return TWO_ROOTS;
 }
 
-void output_coeff ( float *x1, float *x2, int solution )
+void output_coeff ( Roots_t *roots, int n_roots )
 {
-    enum num_roots volume;
+    switch ( n_roots) {
+        case ROOT_ZERO :
+            printf ( "zero roots" );
+            break;
+        case ONE_ROOT :
+            printf ( "one root : x = %g", roots->x1 );
+            break;
+        case TWO_ROOTS :
+            printf ( "roots : x1 = %g\tx2 = %g", roots->x1, roots->x2 );
+            break;
+        case ROOTS_ALL :
+            printf ( "all numbers" );
+            break;
+    }
+    printf ( "\n" );
+}
 
-    if ( solution == root_zero ) {
-        printf ( "zero roots" );
-    }
-    else if ( solution == one_root ) {
-        printf ( "one root : x = %g", *x1 );
-    }
-    else if ( *x1 == *x2 ) {
-        printf ( "one root : x = %g", *x2 );
-    }
-    else if ( solution == two_roots ) {
-        printf ( "roots : x1 = %g\tx2 = %g", *x1, *x2 );
-    }
-    else if ( solution == root_all ) {
-        printf ( "all numbers" );
-    }
-
+void print_duck ( int n_duck )
+{
+    switch ( n_duck % 4 ) {
+        case 1:
+            printf ( "__________*******____________________________\n ");
+            printf ( "\t\t\t________***    ****__________________________ \n ");
+            printf ( "\t\t\t______****   0   ****_______________________\n ");
+            printf ( "\t\t\t__(////////        ***_____________________\n");
+            printf ( "\t\t\t___(////////         ***____________________\n ");
+            printf ( "\t\t\t_________**         **______________________");
+            break;
+        case 2:
+            printf ( "___________****)     **______________________ \n ");
+            printf ( "\t\t\t________________)    **______________________ \n ");
+            printf ( "\t\t\t_________________)    ** ______________________ \n ");
+            printf ( "\t\t\t_________________)     **_____________________\n");
+            printf ( "\t\t\t_________________)      UU_______________ )))__\n ");
+            printf ( "\t\t\t________________))       UUUU________ ((  )))___");
+            break;
+        case 3:
+            printf ( "_______________))       UUUUUUUU__ ((   )))____\n ");
+            printf ( "\t\t\t______________))          UUUUUUU ((   )))____\n ");
+            printf ( "\t\t\t_____________)                       )))_____ \n ");
+            printf ( "\t\t\t____________)                        )))_____\n");
+            printf ( "\t\t\t___________))                        )))_____ \n ");
+            printf ( "\t\t\t___________))                       )))_____");
+            break;
+        case 0:
+            printf ( "____________))                       )))____ \n ");
+            printf ( "\t\t\t_____________))                     )))_____\n ");
+            printf ( "\t\t\t______________))                 )))_______\n ");
+            printf ( "\t\t\t_______________))<<<<<<<<<<<<<<<<__________ \n");
+            printf ( "\t\t\t________________________________________________ ");
+            break;
+     }
 }
