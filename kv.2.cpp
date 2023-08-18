@@ -57,8 +57,8 @@ int main()
 void get_one_coeff ( double *func_coeff )//, double **func_coeff_p )
 {
     bool indicator = 0;
-    static char buf[100];    //wtf
-    static int n_duck = 0;
+    static char buf[100];   //
+    static int n_duck = 0;  //wtf
 
     do {
         memset ( buf, 0, sizeof ( buf ) );
