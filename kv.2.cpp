@@ -6,12 +6,14 @@
 #include <string.h>
 #include <iostream>
 
+const int MAX_BUF_VALUE = 5;   // 100
+
 #define DEBUG
 
 #ifdef DEBUG        // препроцессор должен сразу компилировать, а не сначала препроц., а потом комп.
     #define OUTPUT_ERROR(a) if( a == nullptr) { printf( "line number %d\n", __LINE__ ); abort(); }
 #endif
-enum N_Roots_t {
+enum N_Roots_t {      //
     ROOT_ZERO,
     ONE_ROOT,
     TWO_ROOTS,
@@ -24,7 +26,7 @@ struct Coeff_t {
     double c = 0;
 };
 
-struct Roots_t {                 //
+struct Roots_t {
     double x1 = 0;
     double x2 = 0;
 };
@@ -54,57 +56,63 @@ int main()
     return 0;
 }
 
-void get_one_coeff ( double *func_coeff )//, double **func_coeff_p )
+void get_one_coeff ( double *func_coeff )
 {
-    bool indicator = 0;
-    static char buf[100];   //
-    static int n_duck = 0;  //wtf
+    OUTPUT_ERROR ( func_coeff );
+
+    bool incorrect_input;
+    static char buf[MAX_BUF_VALUE];    //wtf   // {0}
+    static int n_duck = 0;
+
+    printf ( "input coefficient: " );
 
     do {
-        memset ( buf, 0, sizeof ( buf ) );
+        memset ( buf, 0, sizeof ( buf ) );        // print my memset
 
-        int i, num, c;
+        int i, n_buf, n_point, c;                     // num ??? кол-во точек в вводе
+        i = n_point = n_buf = 0;
 
-        for ( i = 0, indicator = 0, num = 0; ( c = getchar () ) != '\n' ; ++i ) {
-            if ( isdigit ( c ) || ( i == 0 && c == '-' ) ) {
+        for ( incorrect_input = false; ( c = getchar () ) != '\n'  ; ++i ) {    //getchar() error 1) EOF 2) - 3) консоль минус
+            if ( ++n_buf > MAX_BUF_VALUE ) {
+                incorrect_input = true;
+            }                                                          // объединить все !isdigit в одно
+            else if ( isdigit ( c ) || ( i == 0 && c == '-' ) ) {
                 buf[i] = c;
             }
-            else if ( c == '.' && num == 0 ) {
+            else if ( c == '.' && n_point == 0 ) {
                     buf[i] = c;
-                    ++num;
+                    ++n_point;
             }
             else {
-                indicator = 1;
+                incorrect_input = true;
             }
         }
-        if ( indicator == 1 ) {
+        if ( i == 0 ) {
+            incorrect_input = true;
+        }
+        if ( incorrect_input ) {
+            if ( n_buf > MAX_BUF_VALUE ) {
+                printf ( "buffer is full\n" );
+            }
             printf ( "incorrect input\t\t" );
             ++n_duck;
             print_duck ( n_duck );
         }
-    } while ( indicator == 1 );
+    } while ( incorrect_input );
 
     *func_coeff = atof(buf);
-
-    //*func_coeff_p = nullptr;
 }
 
 void input_coeffs ( Coeff_t *func_coeff )
-{
-    //double *func_coeff_a = &func_coeff->a;          // почему сразу нельзя &(&...)
-    //double **func_coeff_p = &( func_coeff_a );
-
+{                            //double *func_coeff_a = &func_coeff->a;     почему сразу нельзя &(&...)
     get_one_coeff ( &func_coeff->a );
-    printf ( "A = %g\n", func_coeff->a );
-    OUTPUT_ERROR( &func_coeff->a )
+    printf ( "A = %g\n", func_coeff->a );  // what
 
     get_one_coeff ( &func_coeff->b );
     printf ( "B = %g\n", func_coeff->b );
-    OUTPUT_ERROR( &func_coeff->b )
 
     get_one_coeff ( &func_coeff->c );
     printf ( "C = %g\n", func_coeff->c );
-    OUTPUT_ERROR( &func_coeff->c )
 }
 
 int solve ( Coeff_t *func_coeff, Roots_t *roots )
@@ -135,8 +143,9 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
             return ROOT_ZERO;
         }
         else if ( D > 0 ) {
-            roots->x1 = ( -func_coeff->b - sqrt(D) ) / ( 2 * func_coeff->a );
-            roots->x2 = ( -func_coeff->b + sqrt(D) ) / ( 2 * func_coeff->a );
+            double radical = sqrt ( D );
+            roots->x1 = ( -func_coeff->b - radical ) / ( 2 * func_coeff->a );
+            roots->x2 = ( -func_coeff->b + radical ) / ( 2 * func_coeff->a );
         }
         else if ( D == 0 ) {
             roots->x1 = roots->x2 = -func_coeff->b / ( 2 * func_coeff->a );
@@ -148,7 +157,7 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
     return TWO_ROOTS;
 }
 
-void output_coeff ( Roots_t *roots, int n_roots )
+void output_coeff ( Roots_t *roots, int n_roots )   // +
 {
     switch ( n_roots) {
         case ROOT_ZERO :
@@ -167,39 +176,44 @@ void output_coeff ( Roots_t *roots, int n_roots )
     printf ( "\n" );
 }
 
-void print_duck ( int n_duck )
+void print_duck ( int n_duck )           // +
 {
     switch ( n_duck % 4 ) {
         case 1:
-            printf ( "__________*******____________________________\n ");
-            printf ( "\t\t\t________***    ****__________________________ \n ");
-            printf ( "\t\t\t______****   0   ****_______________________\n ");
-            printf ( "\t\t\t__(////////        ***_____________________\n");
-            printf ( "\t\t\t___(////////         ***____________________\n ");
-            printf ( "\t\t\t_________**         **______________________");
+            printf (       "________________________________________________\n" );
+            printf ( "\t\t\t__________*******_______________________________\n" );
+            printf ( "\t\t\t________***    ****_____________________________\n" );
+            printf ( "\t\t\t______****   0   ****___________________________\n" );
+            printf ( "\t\t\t__(////////        ***__________________________\n" );
+            printf ( "\t\t\t___(////////         ***________________________\t" );
+            printf ( "input coefficient: " );
             break;
         case 2:
-            printf ( "___________****)     **______________________ \n ");
-            printf ( "\t\t\t________________)    **______________________ \n ");
-            printf ( "\t\t\t_________________)    ** ______________________ \n ");
-            printf ( "\t\t\t_________________)     **_____________________\n");
-            printf ( "\t\t\t_________________)      UU_______________ )))__\n ");
-            printf ( "\t\t\t________________))       UUUU________ ((  )))___");
+            printf (       "_________**         **__________________________\n" );
+            printf ( "\t\t\t___________****)     **_________________________\n" );
+            printf ( "\t\t\t________________)    **_________________________\n" );
+            printf ( "\t\t\t_________________)    ** _______________________\n" );
+            printf ( "\t\t\t_________________)     **_______________________\n" );
+            printf ( "\t\t\t_________________)      UU_______________ )))___\t" );
+            printf ( "input coefficient: " );
             break;
         case 3:
-            printf ( "_______________))       UUUUUUUU__ ((   )))____\n ");
-            printf ( "\t\t\t______________))          UUUUUUU ((   )))____\n ");
-            printf ( "\t\t\t_____________)                       )))_____ \n ");
-            printf ( "\t\t\t____________)                        )))_____\n");
-            printf ( "\t\t\t___________))                        )))_____ \n ");
-            printf ( "\t\t\t___________))                       )))_____");
+            printf (       "________________))       UUUU________ ((  )))___\n" );
+            printf ( "\t\t\t_______________))       UUUUUUUU__ ((   )))_____\n" );
+            printf ( "\t\t\t______________))          UUUUUUU ((   )))______\n" );
+            printf ( "\t\t\t_____________)                       )))________\n" );
+            printf ( "\t\t\t____________)                        )))________\n" );
+            printf ( "\t\t\t___________))                        )))________\t" );
+            printf ( "input coefficient: " );
             break;
         case 0:
-            printf ( "____________))                       )))____ \n ");
-            printf ( "\t\t\t_____________))                     )))_____\n ");
-            printf ( "\t\t\t______________))                 )))_______\n ");
-            printf ( "\t\t\t_______________))<<<<<<<<<<<<<<<<__________ \n");
-            printf ( "\t\t\t________________________________________________ ");
+            printf (       "___________))                       )))_________\n" );
+            printf ( "\t\t\t____________))                       )))________\n" );
+            printf ( "\t\t\t_____________))                     )))_________\n" );
+            printf ( "\t\t\t______________))                 )))____________\n" );
+            printf ( "\t\t\t_______________))<<<<<<<<<<<<<<<<_______________\n" );
+            printf ( "\t\t\t________________________________________________\t" );
+            printf ( "input coefficient: " );
             break;
      }
 }
