@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <iostream>
+#include <stdint.h>
 
 const int MAX_BUF_VALUE = 100;
 
@@ -15,6 +16,7 @@ const int MAX_BUF_VALUE = 100;
 #else
     #defune OUTPUT_ERROR(a) ;
 #endif
+
 enum N_Roots_t {        // enum bla {] bla;
     ROOT_ZERO,
     ONE_ROOT,
@@ -33,6 +35,7 @@ struct Roots_t {
     double x2 = 0;
 };
 
+void my_memset ( void *s, int number, size_t value );     // void
 void error_checking ( double *func_coeff, int line );
 void output_error ( double *func_coeff );
 void get_one_coeff ( double *func_coeff);
@@ -70,10 +73,11 @@ void get_one_coeff ( double *func_coeff )
     printf ( "input coefficient: " );
 
     do {
-        memset ( buf, 0, sizeof ( buf ) );        // print my memset
+        //memset ( buf, 0, sizeof ( buf ) );
+        my_memset ( buf, 0, sizeof ( buf ) );
 
         int i, n_point, c;
-        i = n_point = 0;                   //
+         i = n_point = 0;                   //
 
         for ( incorrect_input = false; ( c = getchar () ) != '\n'  ; ++i ) {    //getchar() error 1) EOF 2) - 3) консоль минус                                                         // объединить все !isdigit в одно
             if ( isdigit ( c ) || ( i == 0 && c == '-' ) || ( c == '.' && n_point++ == 0 ) ) {
@@ -225,3 +229,17 @@ void error_checking ( double *func_coeff, int line )
         abort();
     }
 }
+
+void my_memset ( void *s, int number, size_t value )
+{
+    unsigned char *val = ( unsigned char *) s;
+    int i = 0;
+
+    for ( ; i < value; ++ i ) {
+        *( val + i ) = number;
+    }
+    //while ( value > 0 ) {        // не работает утка
+    //    val[value--] = number;
+    // }
+}
+
