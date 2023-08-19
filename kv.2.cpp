@@ -115,7 +115,7 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
 {
     double epsilon = 0.000001;
 
-    if ( compareepsilon( func_coeff-> a ) )
+    if ( fabs ( func_coeff->a - 0 ) < epsilon )
     {
         if ( fabs ( func_coeff->b - 0 ) >= epsilon ) {
             roots->x1 = roots->x2 = -func_coeff->c / func_coeff->b;
