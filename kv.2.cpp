@@ -11,7 +11,7 @@ const int MAX_BUF_VALUE = 100;
 
 #define DEBUG
 
-#ifdef DEBUG        // ÔÂÔÓˆÂÒÒÓ ‰ÓÎÊÂÌ Ò‡ÁÛ ÍÓÏÔËÎËÓ‚‡Ú¸, ‡ ÌÂ ÒÌ‡˜‡Î‡ ÔÂÔÓˆ., ‡ ÔÓÚÓÏ ÍÓÏÔ.
+#ifdef DEBUG        // –ø—Ä–µ–ø—Ä–æ—Ü–µ—Å—Å–æ—Ä –¥–æ–ª–∂–µ–Ω —Å—Ä–∞–∑—É –∫–æ–º–ø–∏–ª–∏—Ä–æ–≤–∞—Ç—å, –∞ –Ω–µ —Å–Ω–∞—á–∞–ª–∞ –ø—Ä–µ–ø—Ä–æ—Ü., –∞ –ø–æ—Ç–æ–º –∫–æ–º–ø.
     #define OUTPUT_ERROR( a ); error_checking ( a, __LINE__ )
 #else
     #defune OUTPUT_ERROR(a) ;
@@ -35,14 +35,13 @@ struct Roots_t {
     double x2 = 0;
 };
 
-void my_memset ( void *s, int number, size_t value );     // void
+void my_memset ( void *s, int number, size_t value );     // void    //
 void error_checking ( double *func_coeff, int line );
-void output_error ( double *func_coeff );
-void get_one_coeff ( double *func_coeff);
-void input_coeffs ( Coeff_t *func_coeff );
+void get_one_coeff ( double *func_coeff);       //
+void input_coeffs ( Coeff_t *func_coeff );       //
 int solve ( Coeff_t *func_coeff, Roots_t *roots );
 void output_roots ( Roots_t *roots, int n_roots );
-void print_duck ( int n_duck );
+void print_duck ( int n_duck );                   //
 
 int main ( void )
 {
@@ -73,13 +72,12 @@ void get_one_coeff ( double *func_coeff )
     printf ( "input coefficient: " );
 
     do {
-        //memset ( buf, 0, sizeof ( buf ) );
         my_memset ( buf, 0, sizeof ( buf ) );
 
         int i, n_point, c;
          i = n_point = 0;                   //
 
-        for ( incorrect_input = false; ( c = getchar () ) != '\n'  ; ++i ) {    //getchar() error 1) EOF 2) - 3) ÍÓÌÒÓÎ¸ ÏËÌÛÒ                                                         // Ó·˙Â‰ËÌËÚ¸ ‚ÒÂ !isdigit ‚ Ó‰ÌÓ
+        for ( incorrect_input = false; ( c = getchar () ) != '\n'  ; ++i ) {    //getchar() error 1) EOF 2) - 3) √™√Æ√≠√±√Æ√´√º √¨√®√≠√≥√±                                                         // √Æ√°√∫√•√§√®√≠√®√≤√º √¢√±√• !isdigit √¢ √Æ√§√≠√Æ
             if ( isdigit ( c ) || ( i == 0 && c == '-' ) || ( c == '.' && n_point++ == 0 ) ) {
                 buf[i] = ( char ) c;
             }
@@ -102,7 +100,7 @@ void get_one_coeff ( double *func_coeff )
 }
 
 void input_coeffs ( Coeff_t *func_coeff )
-{                            //double *func_coeff_a = &func_coeff->a;     ÔÓ˜ÂÏÛ Ò‡ÁÛ ÌÂÎ¸Áˇ &(&...)
+{                            //double *func_coeff_a = &func_coeff->a;     –ø–æ—á–µ–º—É —Å—Ä–∞–∑—É –Ω–µ–ª—å–∑—è &(&...)
     get_one_coeff ( &func_coeff->a );
     printf ( "A = %g\n", func_coeff->a );  // what
 
@@ -115,15 +113,16 @@ void input_coeffs ( Coeff_t *func_coeff )
 
 int solve ( Coeff_t *func_coeff, Roots_t *roots )
 {
+    double epsilon = 0.000001;
 
-    if ( func_coeff->a == 0 )
+    if ( compareepsilon( func_coeff-> a ) )
     {
-        if ( func_coeff->b != 0 ) {
+        if ( fabs ( func_coeff->b - 0 ) >= epsilon ) {
             roots->x1 = roots->x2 = -func_coeff->c / func_coeff->b;
 
             return ONE_ROOT;
         }
-        else if ( func_coeff->b == 0 && func_coeff->c != 0 ) {
+        else if ( fabs ( func_coeff->b - 0 ) < epsilon && fabs ( func_coeff->c - 0 ) >= epsilon) {
 
             return ROOT_ZERO;
         }
@@ -145,7 +144,7 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
             roots->x1 = ( -func_coeff->b - radical ) / ( 2 * func_coeff->a );
             roots->x2 = ( -func_coeff->b + radical ) / ( 2 * func_coeff->a );
         }
-        else if ( D == 0 ) {
+        else if ( fabs ( D - 0 ) < epsilon ) {
             roots->x1 = roots->x2 = -func_coeff->b / ( 2 * func_coeff->a );
 
             return ONE_ROOT;
@@ -235,10 +234,10 @@ void my_memset ( void *s, int number, size_t value )
     unsigned char *val = ( unsigned char *) s;
     int i = 0;
 
-    for ( ; i < value; ++ i ) {
-        *( val + i ) = number;
+    for ( ; ( unsigned int ) i < ( unsigned int ) value; ++i ) {
+        *( val + ( unsigned char ) i ) = ( unsigned char ) number;
     }
-    //while ( value > 0 ) {        // ÌÂ ‡·ÓÚ‡ÂÚ ÛÚÍ‡
+    //while ( value > 0 ) {        // –Ω–µ —Ä–∞–±–æ—Ç–∞–µ—Ç —É—Ç–∫–∞
     //    val[value--] = number;
     // }
 }
