@@ -7,8 +7,6 @@
 #include <iostream>
 #include <stdint.h>
 
-const int MAX_BUF_VALUE = 5;          ..
-
 // TODO: interface
 
 #define DEBUG
@@ -37,22 +35,21 @@ struct Roots_t {
     double x2 = 0;
 };
 
-enum Mode {   ....
-    LINER,
+enum Mode_t {
+    LINEAR,
     QUADRATIC
 };
 
 // struct errors
 
-Mode interface ();
-void print_duck ( int n_duck );
+Mode_t interface ();
+void print_duck ( const int n_duck );
 void get_one_coeff ( double *func_coeff);
 void check_pointer ( void *func_coeff, int line );
-void my_memset ( void *s, char number, size_t value );
+void my_memset ( const void *s,const char number,const size_t value );
 void input_coeffs ( Coeff_t *func_coeff ); //, const int *choice );
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
-
-N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots ); //, const int *choice );
+N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots ); //, const int *choice );
 
 int main ( )
 {    // FIXE:
@@ -77,11 +74,13 @@ void get_one_coeff ( double *func_coeff)
 {
     ASSERT ( func_coeff );
 
+    const int MAX_BUF_VALUE = 5;
     bool incorrect_input = false;
+    bool overflow_indicator = false;
     static char buf[MAX_BUF_VALUE] = {0};
     static int n_duck = 0;
     double value = 0;
-    double epsilon = 1e-6;
+    const double epsilon = 1e-6;
 
     printf ( "input coefficient: " );
 
@@ -91,25 +90,31 @@ void get_one_coeff ( double *func_coeff)
         }
         my_memset ( buf, 0, strlen ( buf ) );
         incorrect_input = false;
+        overflow_indicator = false;
 
         char *end = buf;
 
 // getchar
         ASSERT ( end );
-// '\n' ' ' '\t'
-        scanf ( "%.5s", buf );// fread  FILE*
-        if ( strlen ( buf ) > MAX_BUF_VALUE ) {
-            incorrect_input = true;
-            printf ( "buffer is full\n" );
-            ...
+        int c, i = 0;
+
+        for ( ; ( c = getchar() ) != '\n'; ++i ) {  // errors
+            buf[i] = c;
+            if ( i + 1 > MAX_BUF_VALUE && overflow_indicator == false ) {
+                printf ( "buffer is full\n" );
+                i = 0;
+                overflow_indicator = true;
+                incorrect_input = true;
+            }
+            else if ( i + 1 > MAX_BUF_VALUE && overflow_indicator == true ) {
+                i = 0;
+            }
         }
+
+        //scanf ( "%.5s", buf );// fread  FILE*
         value = strtod ( &buf[0], &end );
 
         ASSERT ( end );
-
-        if ( ( fabs ( value - 0 ) < epsilon && buf[0] != '0' ) || *end != '\0' ) {
-            incorrect_input = true;
-        }
 
         if (errno == ERANGE){
             printf("range error, got ");
@@ -133,7 +138,7 @@ void input_coeffs ( Coeff_t *func_coeff ) //, const int *choice )
 
 }
 
-N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots ) //, const int *choice )
+N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots ) //, const int *choice )
 {
     double epsilon = 1e-6;
 
@@ -204,7 +209,7 @@ void output_roots ( const Roots_t *roots, N_Roots_t n_roots )
     printf ( "\n" );
 }
 
-void print_duck ( int n_duck )
+void print_duck ( const int n_duck )
 {
     switch ( n_duck % 4 ) {
         case 1:
@@ -258,7 +263,7 @@ void check_pointer ( void *func_coeff, int line )
     }
 }
 
-void my_memset ( void *s, char number, size_t value )
+void my_memset ( const void *s, const char number, const size_t value )
 {
     char *val = (char *)s;
 
@@ -267,23 +272,35 @@ void my_memset ( void *s, char number, size_t value )
     }
 }
 
-Mode interface ()
+Mode_t interface ()
 {
-    printf ( "select mode : liner (1) or quadratic (2)\n" );
+    printf ( "select mode : linear (1) or quadratic (2)\n" );
 
-    char buf[13];     // buffer overflow
+    const int MAX_BUF_VALUE = 13;
+    char buf[MAX_BUF_VALUE] = {0};     // buffer overflow
+    int n_overflow = 0;
 
-    scanf ( "%s", buf );
-
-    if ( strcmp( buf, "liner" ) == 0 || strcmp( buf, "1") == 0 ) {
-        return LINER;
+    for ( int c, i = 0; ( c = getchar() ) != '\n'; ++i ) {  // errors
+        buf[i] = c;
+        if ( i + 1 > MAX_BUF_VALUE && n_overflow == 0 ) {
+            printf ( "buffer is full\n" );
+            i = 0;
+            ++n_overflow;
+        }
+        else if ( i + 1 > MAX_BUF_VALUE && n_overflow > 1 ) {
+            i = 0;
+        }
+    }
+    if ( strcmp( buf, "linear" ) == 0 || strcmp( buf, "1") == 0 ) {
+        return LINEAR;
     }
     else if ( strcmp( buf, "quadratic" ) == 0 || strcmp( buf, "2") == 0 ) {
         return QUADRATIC;
     }
     else {
-        printf ( "Are you stupid?!?!?! Please enter correctly\n");
-        abort();
+        printf ( "Are you stupid?!?!?! Please enter correctly\n\n");
+        // cat
+        interface();
     }
 }
 
