@@ -45,21 +45,22 @@ enum Mode_t {
 Mode_t interface ();
 void print_duck ( const int n_duck );
 void get_one_coeff ( double *func_coeff);
+void get_coeff ( char coeff[], double *n_coeff );
 void check_pointer ( void *func_coeff, int line );
-void my_memset ( const void *s,const char number,const size_t value );
-void input_coeffs ( Coeff_t *func_coeff ); //, const int *choice );
+void my_memset ( const void *s, const char number, const size_t value );
+void input_coeffs ( Coeff_t *func_coeff, const int *choice );
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
-N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots ); //, const int *choice );
+N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice );
 
 int main ( )
 {    // FIXE:
     const int choice = interface ();            // вместо утки кота
 
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
-    input_coeffs ( &func_coeff ); //, &choice );
+    input_coeffs ( &func_coeff, &choice );
 
     struct Roots_t   roots; //
-    enum N_Roots_t n_roots = solve ( &func_coeff, &roots ); //, &choice );
+    enum N_Roots_t n_roots = solve ( &func_coeff, &roots, &choice );
 
     ASSERT ( &func_coeff.a );
     ASSERT ( &func_coeff.b );
@@ -74,7 +75,7 @@ void get_one_coeff ( double *func_coeff)
 {
     ASSERT ( func_coeff );
 
-    const int MAX_BUF_VALUE = 5;
+    const int MAX_BUF_VALUE = 100;
     bool incorrect_input = false;
     bool overflow_indicator = false;
     static char buf[MAX_BUF_VALUE] = {0};
@@ -93,10 +94,9 @@ void get_one_coeff ( double *func_coeff)
         overflow_indicator = false;
 
         char *end = buf;
-
-// getchar
-        ASSERT ( end );
         int c, i = 0;
+
+        ASSERT ( end );
 
         for ( ; ( c = getchar() ) != '\n'; ++i ) {  // errors
             buf[i] = c;
@@ -110,8 +110,6 @@ void get_one_coeff ( double *func_coeff)
                 i = 0;
             }
         }
-
-        //scanf ( "%.5s", buf );// fread  FILE*
         value = strtod ( &buf[0], &end );
 
         ASSERT ( end );
@@ -125,20 +123,20 @@ void get_one_coeff ( double *func_coeff)
     *func_coeff = value;
 }
 
-void input_coeffs ( Coeff_t *func_coeff ) //, const int *choice )
+void input_coeffs ( Coeff_t *func_coeff, const int *choice )
 {
-    get_one_coeff ( &func_coeff->a );
-    printf ( "A = %g\n", func_coeff->a );
-
-    get_one_coeff ( &func_coeff->b );
-    printf ( "B = %g\n", func_coeff->b );
-
-    get_one_coeff ( &func_coeff->c );
-    printf ( "C = %g\n", func_coeff->c );
-
+    if ( *choice == QUADRATIC ) {
+        get_coeff ( "A", &func_coeff->a );
+        get_coeff ( "B", &func_coeff->b );
+        get_coeff ( "C", &func_coeff->c );
+    }
+    else if ( *choice == LINEAR ) {
+        get_coeff ( "K", &func_coeff->b );
+        get_coeff ( "B", &func_coeff->c );
+    }
 }
 
-N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots ) //, const int *choice )
+N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 {
     double epsilon = 1e-6;
 
@@ -302,5 +300,11 @@ Mode_t interface ()
         // cat
         interface();
     }
+}
+
+void get_coeff ( char coeff[], double *n_coeff )
+{
+    get_one_coeff ( n_coeff );
+    printf ( "%c = %g\n",*coeff, *n_coeff );
 }
 
