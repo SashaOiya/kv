@@ -1,20 +1,20 @@
 #include <stdio.h>
-#include <stdlib.h>              // error 1) nullptr +
-#include <ctype.h>               //         2)
+#include <stdlib.h>
+#include <ctype.h>
 #include <cmath>
 #include <stdarg.h>
 #include <string.h>
 #include <iostream>
 #include <stdint.h>
 
-// TODO: interface
-
 #define DEBUG
 
 #ifdef DEBUG
     #define ASSERT( a ) check_pointer ( a, __LINE__ )
+   // #define GET_ERROR check_getchar ( __LINE__ )
 #else
-    #defune ASSERT(a) ;
+    #defune ASSERT( a ) ;
+    //#define GET_ERROR ;
 #endif
 
 enum N_Roots_t {        // enum bla {] bla;
@@ -40,8 +40,6 @@ enum Mode_t {
     QUADRATIC
 };
 
-// struct errors
-
 Mode_t interface ();
 void print_duck ( const int n_duck );
 void get_one_coeff ( double *func_coeff);
@@ -51,10 +49,11 @@ void my_memset ( const void *s, const char number, const size_t value );
 void input_coeffs ( Coeff_t *func_coeff, const int *choice );
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
 N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice );
+//void check_getchar ( int line );
 
 int main ( )
-{    // FIXE:
-    const int choice = interface ();            // вместо утки кота
+{
+    const int choice = interface ();
 
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
     input_coeffs ( &func_coeff, &choice );
@@ -75,7 +74,7 @@ void get_one_coeff ( double *func_coeff)
 {
     ASSERT ( func_coeff );
 
-    const int MAX_BUF_VALUE = 5;
+    const int MAX_BUF_VALUE = 100;
     bool incorrect_input = false;
     bool overflow_indicator = false;
     static char buf[MAX_BUF_VALUE] = {0};
@@ -85,7 +84,6 @@ void get_one_coeff ( double *func_coeff)
     printf ( "input coefficient: " );
 
     do {
-// TODO: struct overflow_indicator, incorrect_input
         if ( incorrect_input ) {
             print_duck ( ++n_duck );
         }
@@ -95,11 +93,10 @@ void get_one_coeff ( double *func_coeff)
 
         char *end = buf;
         int i = 0;
-        char c = 0;
 
         ASSERT ( end );
 
-        for ( ; ( c = getchar() ) != '\n'; ++i ) {  // errors
+        for ( char c = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
             buf[i] = c;
             if ( i + 1 > MAX_BUF_VALUE && overflow_indicator == false ) {
                 printf ( "buffer is full\n" );
@@ -110,6 +107,14 @@ void get_one_coeff ( double *func_coeff)
             else if ( i + 1 > MAX_BUF_VALUE && overflow_indicator == true ) {
                 i = 0;
             }
+        }
+        if ( feof ( stdin ) ) {
+            puts ( "End of file reached" );
+        }
+        else if ( ferror ( stdin ) ) {
+            perror ( "getchar()" );
+            fprintf ( stderr, "getchar() failed in file %s at line # %d\n", __FILE__,__LINE__-9 );
+            exit ( EXIT_FAILURE );
         }
         value = strtod ( &buf[0], &end );
 
@@ -282,7 +287,7 @@ Mode_t interface ()
     char buf[MAX_BUF_VALUE] = {0};     // buffer overflow
     int n_overflow = 0;
 
-    for ( int c, i = 0; ( c = getchar() ) != '\n'; ++i ) {  // errors
+    for ( int c, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {  // errors
         buf[i] = c;
         if ( i + 1 > MAX_BUF_VALUE && n_overflow == 0 ) {
             printf ( "buffer is full\n" );
@@ -293,6 +298,14 @@ Mode_t interface ()
             i = 0;
         }
     }
+    if ( feof ( stdin ) ) {
+        puts ( "End of file reached" );
+    }
+    else if ( ferror ( stdin ) ) {
+        perror ( "getchar()" );
+        fprintf ( stderr, "getchar() failed in file %s at line # %d\n", __FILE__,__LINE__-9 );
+        exit ( EXIT_FAILURE );
+    }
     if ( strcmp( buf, "linear" ) == 0 || strcmp( buf, "1") == 0 ) {
         return LINEAR;
     }
@@ -301,12 +314,12 @@ Mode_t interface ()
     }
     else {
         printf ( "Please enter correctly\n\n");
-        printf ( "           _,'|             _.-''``-...___..--'; \n" );
-        printf ( "          /_ \'.      __..-' ,      ,--...--'''  \n" );
-        printf ( "         <\    .`--'''       `     /'            \n" );
-        printf ( "           -';'               ;   ; ;            \n" );
-        printf ( "  __...--''     ___...--_..'  .;.'               \n" );
-        printf ( " (,__....----'''       (,..--''                  \n" );
+        printf ( "           _,'|             _.-''``-...___..--';   \n" );
+        printf ( "          /_ \'.      __..-' ,      ,--...--'''    \n" );
+        printf ( "         <\    .`--'''       `     /'              \n" );
+        printf ( "           -';'               ;   ; ;              \n" );
+        printf ( "  __...--''     ___...--_..'  .;.'                 \n" );
+        printf ( " (,__....----'''       (,..--''                  \n\n" );
         interface();
     }
 }
@@ -317,3 +330,15 @@ void get_coeff ( char coeff[], double *n_coeff )
     printf ( "%c = %g\n",*coeff, *n_coeff );
 }
 
+//void check_getchar ( int line )
+//{
+//
+//    if (feof(stdin))
+//      puts("End of file reached");
+//    else if (ferror(stdin))
+//         {
+//            perror("getchar()");
+//            fprintf(stderr,"getchar() failed in file %s at line # %d\n", __FILE__,__LINE__-9);
+//            exit(EXIT_FAILURE);
+//         }
+//}
