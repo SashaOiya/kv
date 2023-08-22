@@ -75,17 +75,17 @@ void get_one_coeff ( double *func_coeff)
 {
     ASSERT ( func_coeff );
 
-    const int MAX_BUF_VALUE = 100;
+    const int MAX_BUF_VALUE = 5;
     bool incorrect_input = false;
     bool overflow_indicator = false;
     static char buf[MAX_BUF_VALUE] = {0};
     static int n_duck = 0;
     double value = 0;
-    const double epsilon = 1e-6;
 
     printf ( "input coefficient: " );
 
     do {
+// TODO: struct overflow_indicator, incorrect_input
         if ( incorrect_input ) {
             print_duck ( ++n_duck );
         }
@@ -94,7 +94,8 @@ void get_one_coeff ( double *func_coeff)
         overflow_indicator = false;
 
         char *end = buf;
-        int c, i = 0;
+        int i = 0;
+        char c = 0;
 
         ASSERT ( end );
 
@@ -140,8 +141,7 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 {
     double epsilon = 1e-6;
 
-    if ( fabs ( func_coeff->a - 0 ) < epsilon )             // solve liner
-    {
+    if ( *choice == LINEAR ) {            // solve linear
         if ( fabs ( func_coeff->b - 0 ) >= epsilon ) {
             roots->x1 = roots->x2 = -func_coeff->c / func_coeff->b;
 
@@ -156,8 +156,7 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
             return ROOTS_ALL;
         }
     }
-    else
-    {
+    else if ( *choice == QUADRATIC ) {
         double D = func_coeff->b * func_coeff->b - 4 * func_coeff->a * func_coeff->c;
 
         if ( fabs ( func_coeff->a - 0 ) < epsilon ) {
@@ -165,7 +164,6 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
             printf ( "Are you stupid?!?!?! THIS IS QUADRATIC EQUATION !!!\n");
             abort();
         }
-
         if ( D < 0 ) {
 
             return ROOT_ZERO;
@@ -180,6 +178,9 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 
             return ONE_ROOT;
         }
+    }
+    else {
+        printf ( "error", __LINE__ );
     }
 
     return TWO_ROOTS;
@@ -297,7 +298,7 @@ Mode_t interface ()
     }
     else {
         printf ( "Are you stupid?!?!?! Please enter correctly\n\n");
-        // cat
+// TODO: cat
         interface();
     }
 }
