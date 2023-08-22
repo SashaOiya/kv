@@ -54,7 +54,7 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 
 int main ( )
 {    // FIXE:
-    const int choice = interface ();            // вместо утки кота
+    const int choice = interface ();            // РІРјРµСЃС‚Рѕ СѓС‚РєРё РєРѕС‚Р°
 
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
     input_coeffs ( &func_coeff, &choice );
@@ -115,6 +115,9 @@ void get_one_coeff ( double *func_coeff)
 
         ASSERT ( end );
 
+        if ( value == 0 || *end != '\0' ) {
+            incorrect_input = true;
+        }
         if (errno == ERANGE){
             printf("range error, got ");
             errno = 0;
@@ -297,8 +300,13 @@ Mode_t interface ()
         return QUADRATIC;
     }
     else {
-        printf ( "Are you stupid?!?!?! Please enter correctly\n\n");
-// TODO: cat
+        printf ( "Please enter correctly\n\n");
+        printf ( "           _,'|             _.-''``-...___..--'; \n" );
+        printf ( "          /_ \'.      __..-' ,      ,--...--'''  \n" );
+        printf ( "         <\    .`--'''       `     /'            \n" );
+        printf ( "           -';'               ;   ; ;            \n" );
+        printf ( "  __...--''     ___...--_..'  .;.'               \n" );
+        printf ( " (,__....----'''       (,..--''                  \n" );
         interface();
     }
 }
