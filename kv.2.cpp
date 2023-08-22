@@ -7,19 +7,21 @@
 #include <iostream>
 #include <stdint.h>
 
-const int MAX_BUF_VALUE = 100;
+const int MAX_BUF_VALUE = 5;
+
+// TODO: interface
 
 #define DEBUG
 
-#ifdef DEBUG        // препроцессор должен сразу компилировать, а не сначала препроц., а потом комп.
-    #define OUTPUT_ERROR( a ); error_checking ( a, __LINE__ )
+#ifdef DEBUG
+    #define ASSERT( a ); check_pointer ( a, __LINE__ )
 #else
-    #defune OUTPUT_ERROR(a) ;
+    #defune ASSERT(a) ;
 #endif
 
 enum N_Roots_t {        // enum bla {] bla;
     ROOT_ZERO,
-    ONE_ROOT,
+    ONE_ROOT ,
     TWO_ROOTS,
     ROOTS_ALL
 };
@@ -35,87 +37,106 @@ struct Roots_t {
     double x2 = 0;
 };
 
-void my_memset ( void *s, int number, size_t value );     // void    //
-void error_checking ( double *func_coeff, int line );
-void get_one_coeff ( double *func_coeff);       //
-void input_coeffs ( Coeff_t *func_coeff );       //
-int solve ( Coeff_t *func_coeff, Roots_t *roots );
-void output_roots ( Roots_t *roots, int n_roots );
-void print_duck ( int n_duck );                   //
+enum Mode {
+    LINER,
+    QUADRATIC
+};
 
-int main ( void )
-{
+// struct errors
+
+Mode interface ();
+void print_duck ( int n_duck );
+void get_one_coeff ( double *func_coeff);
+void check_pointer ( void *func_coeff, int line );
+void my_memset ( void *s, char number, size_t value );
+void input_coeffs ( Coeff_t *func_coeff ); //, const int *choice );
+void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
+
+N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots ); //, const int *choice );
+
+int main ( int argc, char *argv[] )
+{    // FIXE:
+    //const int choice = interface ();            // ������ ���� ����
+
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
-    input_coeffs ( &func_coeff );
+    input_coeffs ( &func_coeff ); //, &choice );
 
     struct Roots_t roots;
 
-    int n_roots = solve ( &func_coeff, &roots );
+    enum N_Roots_t n_roots = solve ( &func_coeff, &roots ); //, &choice );
 
-    OUTPUT_ERROR ( &func_coeff.a );
-    OUTPUT_ERROR ( &func_coeff.b );
-    OUTPUT_ERROR ( &func_coeff.c );
+    ASSERT ( &func_coeff.a );
+    ASSERT ( &func_coeff.b );
+    ASSERT ( &func_coeff.c );
 
     output_roots ( &roots, n_roots );
 
     return 0;
 }
 
-void get_one_coeff ( double *func_coeff )
+void get_one_coeff ( double *func_coeff)
 {
-    OUTPUT_ERROR ( func_coeff );
+    ASSERT ( func_coeff );
 
     bool incorrect_input = false;
-    static char buf[MAX_BUF_VALUE] = {0} ;
+    static char buf[MAX_BUF_VALUE] = {0};
     static int n_duck = 0;
+    double value = 0;
 
     printf ( "input coefficient: " );
 
     do {
         my_memset ( buf, 0, sizeof ( buf ) );
 
-        int i, n_point, c;
-         i = n_point = 0;                   //
+        int c;
+        char *end = buf;
 
-        for ( incorrect_input = false; ( c = getchar () ) != '\n'  ; ++i ) {    //getchar() error 1) EOF 2) - 3) êîíñîëü ìèíóñ                                                         // îáúåäèíèòü âñå !isdigit â îäíî
-            if ( isdigit ( c ) || ( i == 0 && c == '-' ) || ( c == '.' && n_point++ == 0 ) ) {
-                buf[i] = ( char ) c;
-            }
-            else {
-                incorrect_input = true;
-            }
+        ASSERT ( end );
+
+        scanf ( "%s", &buf );
+        if ( strlen ( buf ) > MAX_BUF_VALUE ) {
+            incorrect_input = true;
+            printf ( "buffer is full\n" );
+        }
+        value = strtod( &buf[0], &end);
+
+        ASSERT ( end );
+
+        if ( value == 0 || *end != '\0' ) {
+            incorrect_input = true;
         }
 
-        incorrect_input = ( i == 0 || i > MAX_BUF_VALUE  ) ?  true : incorrect_input;
+        if (errno == ERANGE){
+            printf("range error, got ");
+            errno = 0;
+        }
 
-        if ( incorrect_input ) {                   //
-            if ( i > MAX_BUF_VALUE ) {
-                printf ( "buffer is full\n" );
-            }
+        if ( incorrect_input ) {
             print_duck ( ++n_duck );
         }
     } while ( incorrect_input );
 
-    *func_coeff = atof(buf);
+    *func_coeff = value;
 }
 
-void input_coeffs ( Coeff_t *func_coeff )
-{                            //double *func_coeff_a = &func_coeff->a;     почему сразу нельзя &(&...)
+void input_coeffs ( Coeff_t *func_coeff ) //, const int *choice )
+{
     get_one_coeff ( &func_coeff->a );
-    printf ( "A = %g\n", func_coeff->a );  // what
+    printf ( "A = %g\n", func_coeff->a );
 
     get_one_coeff ( &func_coeff->b );
     printf ( "B = %g\n", func_coeff->b );
 
     get_one_coeff ( &func_coeff->c );
     printf ( "C = %g\n", func_coeff->c );
+
 }
 
-int solve ( Coeff_t *func_coeff, Roots_t *roots )
+N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots ) //, const int *choice )
 {
-    double epsilon = 0.000001;
+    double epsilon = 1e-6;
 
-    if ( fabs ( func_coeff->a - 0 ) < epsilon )
+    if ( fabs ( func_coeff->a - 0 ) < epsilon )             // solve liner
     {
         if ( fabs ( func_coeff->b - 0 ) >= epsilon ) {
             roots->x1 = roots->x2 = -func_coeff->c / func_coeff->b;
@@ -134,6 +155,12 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
     else
     {
         double D = func_coeff->b * func_coeff->b - 4 * func_coeff->a * func_coeff->c;
+
+        if ( fabs ( func_coeff->a - 0 ) < epsilon ) {
+// TODO: blue text
+            printf ( "Are you stupid?!?!?! THIS IS QUADRATIC EQUATION !!!\n");
+            abort();
+        }
 
         if ( D < 0 ) {
 
@@ -154,7 +181,7 @@ int solve ( Coeff_t *func_coeff, Roots_t *roots )
     return TWO_ROOTS;
 }
 
-void output_roots ( Roots_t *roots, int n_roots )
+void output_roots ( const Roots_t *roots, N_Roots_t n_roots )
 {
     switch ( n_roots) {
         case ROOT_ZERO :
@@ -170,7 +197,7 @@ void output_roots ( Roots_t *roots, int n_roots )
             printf ( "all numbers" );
             break;
         default :
-            // error
+            printf ( " 'wtf' error" );
             break;
     }
     printf ( "\n" );
@@ -216,29 +243,47 @@ void print_duck ( int n_duck )
             printf ( "input coefficient: " );
             break;
         default :
-            // error
+            printf ( "programmer error, sorry" );
             break;
      }
 }
 
-void error_checking ( double *func_coeff, int line )
+void check_pointer ( void *func_coeff, int line )
 {
+    char *val = (char *)func_coeff;
     if ( func_coeff == nullptr ) {
         printf( "line number %d\n", line );
         abort();
     }
 }
 
-void my_memset ( void *s, int number, size_t value )
+void my_memset ( void *s, char number, size_t value )
 {
-    unsigned char *val = ( unsigned char *) s;
-    int i = 0;
+    char *val = (char *)s;
 
-    for ( ; ( unsigned int ) i < ( unsigned int ) value; ++i ) {
-        *( val + ( unsigned char ) i ) = ( unsigned char ) number;
+    for (size_t i = 0 ; i < value; ++i ) {
+        *( val + i ) = number;
     }
-    //while ( value > 0 ) {        // не работает утка
-    //    val[value--] = number;
-    // }
+}
+
+Mode interface ()
+{
+    printf ( "select mode : liner (1) or quadratic (2)\n" );
+
+    char buf[13];     // buffer overflow
+
+    scanf ( "%s", buf );
+
+    if ( strcmp( buf, "liner" ) == 0 || strcmp( buf, "1") == 0 ) {
+        return LINER;
+    }
+    else if ( strcmp( buf, "quadratic" ) == 0 || strcmp( buf, "2") == 0 ) {
+        return QUADRATIC;
+    }
+    else {
+// TODO: blue text
+        printf ( "Are you stupid?!?!?! Please enter correctly\n");
+        abort();
+    }
 }
 
