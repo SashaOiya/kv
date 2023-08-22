@@ -7,14 +7,14 @@
 #include <iostream>
 #include <stdint.h>
 
-const int MAX_BUF_VALUE = 5;
+const int MAX_BUF_VALUE = 5;          ..
 
 // TODO: interface
 
 #define DEBUG
 
 #ifdef DEBUG
-    #define ASSERT( a ); check_pointer ( a, __LINE__ )
+    #define ASSERT( a ) check_pointer ( a, __LINE__ )
 #else
     #defune ASSERT(a) ;
 #endif
@@ -37,7 +37,7 @@ struct Roots_t {
     double x2 = 0;
 };
 
-enum Mode {
+enum Mode {   ....
     LINER,
     QUADRATIC
 };
@@ -54,15 +54,14 @@ void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
 
 N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots ); //, const int *choice );
 
-int main ( int argc, char *argv[] )
+int main ( )
 {    // FIXE:
-    //const int choice = interface ();            // вместо утки кота
+    const int choice = interface ();            // вместо утки кота
 
     struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
     input_coeffs ( &func_coeff ); //, &choice );
 
-    struct Roots_t roots;
-
+    struct Roots_t   roots; //
     enum N_Roots_t n_roots = solve ( &func_coeff, &roots ); //, &choice );
 
     ASSERT ( &func_coeff.a );
@@ -82,37 +81,39 @@ void get_one_coeff ( double *func_coeff)
     static char buf[MAX_BUF_VALUE] = {0};
     static int n_duck = 0;
     double value = 0;
+    double epsilon = 1e-6;
 
     printf ( "input coefficient: " );
 
     do {
-        my_memset ( buf, 0, sizeof ( buf ) );
+        if ( incorrect_input ) {
+            print_duck ( ++n_duck );
+        }
+        my_memset ( buf, 0, strlen ( buf ) );
+        incorrect_input = false;
 
-        int c;
         char *end = buf;
 
+// getchar
         ASSERT ( end );
-
-        scanf ( "%s", &buf );
+// '\n' ' ' '\t'
+        scanf ( "%.5s", buf );// fread  FILE*
         if ( strlen ( buf ) > MAX_BUF_VALUE ) {
             incorrect_input = true;
             printf ( "buffer is full\n" );
+            ...
         }
-        value = strtod( &buf[0], &end);
+        value = strtod ( &buf[0], &end );
 
         ASSERT ( end );
 
-        if ( value == 0 || *end != '\0' ) {
+        if ( ( fabs ( value - 0 ) < epsilon && buf[0] != '0' ) || *end != '\0' ) {
             incorrect_input = true;
         }
 
         if (errno == ERANGE){
             printf("range error, got ");
             errno = 0;
-        }
-
-        if ( incorrect_input ) {
-            print_duck ( ++n_duck );
         }
     } while ( incorrect_input );
 
@@ -251,9 +252,9 @@ void print_duck ( int n_duck )
 void check_pointer ( void *func_coeff, int line )
 {
     char *val = (char *)func_coeff;
-    if ( func_coeff == nullptr ) {
+    if ( val == nullptr ) {
         printf( "line number %d\n", line );
-        abort();
+        abort();         // segfault
     }
 }
 
@@ -281,7 +282,6 @@ Mode interface ()
         return QUADRATIC;
     }
     else {
-// TODO: blue text
         printf ( "Are you stupid?!?!?! Please enter correctly\n");
         abort();
     }
