@@ -37,15 +37,16 @@ struct Roots_t {
 
 enum Mode_t {
     LINEAR,
-    QUADRATIC
+    QUADRATIC,
+    ERROR
 };
 
 Mode_t interface ();
 void print_duck ( const int n_duck );
 void get_one_coeff ( double *func_coeff);
-void get_coeff ( char coeff[], double *n_coeff );
+void get_coeff ( char *coeff, double *n_coeff );
 void check_pointer ( void *func_coeff, int line );
-void my_memset ( const void *s, const char number, const size_t value );
+void my_memset ( void *s, const char number, const size_t value );
 void input_coeffs ( Coeff_t *func_coeff, const int *choice );
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
 N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice );
@@ -80,6 +81,7 @@ void get_one_coeff ( double *func_coeff)
     static char buf[MAX_BUF_VALUE] = {0};
     static int n_duck = 0;
     double value = 0;
+    const double epsilon = 1e-6;
 
     printf ( "input coefficient: " );
 
@@ -96,8 +98,8 @@ void get_one_coeff ( double *func_coeff)
 
         ASSERT ( end );
 
-        for ( char c = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
-            buf[i] = c;
+        for ( int c = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
+            buf[i] = (char)c;
             if ( i + 1 > MAX_BUF_VALUE && overflow_indicator == false ) {
                 printf ( "buffer is full\n" );
                 i = 0;
@@ -120,7 +122,7 @@ void get_one_coeff ( double *func_coeff)
 
         ASSERT ( end );
 
-        if ( value == 0 || *end != '\0' ) {
+        if ( fabs ( value - 0 ) <= epsilon || *end != '\0' ) {
             incorrect_input = true;
         }
         if (errno == ERANGE){
@@ -143,11 +145,14 @@ void input_coeffs ( Coeff_t *func_coeff, const int *choice )
         get_coeff ( "K", &func_coeff->b );
         get_coeff ( "B", &func_coeff->c );
     }
+    else if ( *choice == ERROR ) {
+        exit ( EXIT_FAILURE );
+    }
 }
 
 N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 {
-    double epsilon = 1e-6;
+    const double epsilon = 1e-6;
 
     if ( *choice == LINEAR ) {            // solve linear
         if ( fabs ( func_coeff->b - 0 ) >= epsilon ) {
@@ -188,7 +193,9 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
         }
     }
     else {
-        printf ( "error", __LINE__ );
+       // __LINE__;
+        printf ( "error" );
+        exit ( EXIT_FAILURE );
     }
 
     return TWO_ROOTS;
@@ -211,7 +218,7 @@ void output_roots ( const Roots_t *roots, N_Roots_t n_roots )
             break;
         default :
             printf ( " 'wtf' error" );
-            break;
+            exit ( EXIT_FAILURE );
     }
     printf ( "\n" );
 }
@@ -257,7 +264,7 @@ void print_duck ( const int n_duck )
             break;
         default :
             printf ( "programmer error, sorry" );
-            break;
+            break;     // exit(...);
      }
 }
 
@@ -265,12 +272,12 @@ void check_pointer ( void *func_coeff, int line )
 {
     char *val = (char *)func_coeff;
     if ( val == nullptr ) {
-        printf( "line number %d\n", line );
-        abort();         // segfault
+        printf( "Segmentation fault \nline number %d\n", line );
+        exit ( EXIT_FAILURE );
     }
 }
 
-void my_memset ( const void *s, const char number, const size_t value )
+void my_memset ( void *s, const char number, const size_t value )
 {
     char *val = (char *)s;
 
@@ -288,7 +295,7 @@ Mode_t interface ()
     int n_overflow = 0;
 
     for ( int c, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {  // errors
-        buf[i] = c;
+        buf[i] = (char)c;
         if ( i + 1 > MAX_BUF_VALUE && n_overflow == 0 ) {
             printf ( "buffer is full\n" );
             i = 0;
@@ -314,18 +321,20 @@ Mode_t interface ()
     }
     else {
         printf ( "Please enter correctly\n\n");
-        printf ( "           _,'|             _.-''``-...___..--';   \n" );
+        printf ( "           _,/|             _.-''``-...___..--';   \n" );
         printf ( "          /_ \'.      __..-' ,      ,--...--'''    \n" );
-        printf ( "         <\    .`--'''       `     /'              \n" );
+        printf ( "         'L..   ''''               /'              \n" );
         printf ( "           -';'               ;   ; ;              \n" );
         printf ( "  __...--''     ___...--_..'  .;.'                 \n" );
         printf ( " (,__....----'''       (,..--''                  \n\n" );
         interface();
     }
+    return ERROR;
 }
 
-void get_coeff ( char coeff[], double *n_coeff )
+void get_coeff ( char *coeff, double *n_coeff )
 {
+
     get_one_coeff ( n_coeff );
     printf ( "%c = %g\n",*coeff, *n_coeff );
 }
