@@ -44,7 +44,7 @@ enum Mode_t {
 Mode_t interface ();
 void print_duck ( const int n_duck );
 void get_one_coeff ( double *func_coeff);
-void get_coeff ( char *coeff, double *n_coeff );
+void get_coeff ( const char *coeff, double *n_coeff );
 void check_pointer ( void *func_coeff, int line );
 void my_memset ( void *s, const char number, const size_t value );
 void input_coeffs ( Coeff_t *func_coeff, const int *choice );
@@ -122,7 +122,7 @@ void get_one_coeff ( double *func_coeff)
 
         ASSERT ( end );
 
-        if ( fabs ( value - 0 ) <= epsilon || *end != '\0' ) {
+        if ( ( fabs ( value - 0 ) <= epsilon && buf[0] != '0' ) || *end != '\0' ) {
             incorrect_input = true;
         }
         if (errno == ERANGE){
@@ -329,10 +329,9 @@ Mode_t interface ()
         printf ( " (,__....----'''       (,..--''                  \n\n" );
         interface();
     }
-    return ERROR;
 }
 
-void get_coeff ( char *coeff, double *n_coeff )
+void get_coeff ( const char *coeff, double *n_coeff )
 {
 
     get_one_coeff ( n_coeff );
@@ -351,3 +350,9 @@ void get_coeff ( char *coeff, double *n_coeff )
 //            exit(EXIT_FAILURE);
 //         }
 //}
+
+
+
+
+
+
