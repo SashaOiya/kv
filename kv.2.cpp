@@ -6,6 +6,7 @@
 #include <string.h>
 #include <iostream>
 #include <stdint.h>
+//#include "test.cpp"
 
 #define DEBUG
 
@@ -49,18 +50,39 @@ void check_pointer ( void *func_coeff, int line );
 void my_memset ( void *s, const char number, const size_t value );
 void input_coeffs ( Coeff_t *func_coeff, const int *choice );
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots );
-N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice );
+N_Roots_t solve ( Coeff_t *func_coeff, Roots_t *roots, const int *choice );
+int Test_All_Cases ( Coeff_t *func_coeffs );
+bool Test_One_Case ( Coeff_t *func_coeffs, Roots_t *ref_roots, int choice, int n_roots_ref );
 //void check_getchar ( int line );
 
 int main ( )
 {
-    const int choice = interface ();
+    const int choice = interface (); // equation type
+    if (choice == ERROR) {
+        return ERROR; //
+    }
 
-    struct Coeff_t func_coeff;      /* coefficients : ax^2 + bx + c = 0*/
-    input_coeffs ( &func_coeff, &choice );
+    struct Coeff_t func_coeff; //      /* coefficients : ax^2 + bx + c = 0*/
+    //input_coeffs ( &func_coeff, &choice );
+
+    // switch
+    //if ( choice == QUADRATIC ) {
+    //    get_coeff ( "A", &func_coeff->a );
+    //    get_coeff ( "B", &func_coeff->b );
+    //get_coeff ( "C", &func_coeff->c );
+    //}
+    //else if ( *choice == LINEAR ) {
+    //    get_coeff ( "K", &func_coeff->b );
+    //    get_coeff ( "B", &func_coeff->c );
+    //}
 
     struct Roots_t   roots; //
-    enum N_Roots_t n_roots = solve ( &func_coeff, &roots, &choice );
+    Test_All_Cases ( &func_coeff )
+
+    //if ( choice == LINEAR )
+    //solve_linear...
+
+    enum N_Roots_t n_roots = solve ( &func_coeff, &roots, &choice ); // -choice
 
     ASSERT ( &func_coeff.a );
     ASSERT ( &func_coeff.b );
@@ -150,7 +172,7 @@ void input_coeffs ( Coeff_t *func_coeff, const int *choice )
     }
 }
 
-N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
+N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )   // убрать указатель
 {
     const double epsilon = 1e-6;
 
@@ -175,7 +197,7 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
         if ( fabs ( func_coeff->a - 0 ) < epsilon ) {
 // TODO: blue text
             printf ( "Are you stupid?!?!?! THIS IS QUADRATIC EQUATION !!!\n");
-            abort();
+            exit ( EXIT_FAILURE ); ////
         }
         if ( D < 0 ) {
 
@@ -191,11 +213,6 @@ N_Roots_t solve ( const Coeff_t *func_coeff, Roots_t *roots, const int *choice )
 
             return ONE_ROOT;
         }
-    }
-    else {
-       // __LINE__;
-        printf ( "error" );
-        exit ( EXIT_FAILURE );
     }
 
     return TWO_ROOTS;
@@ -272,6 +289,7 @@ void check_pointer ( void *func_coeff, int line )
 {
     char *val = (char *)func_coeff;
     if ( val == nullptr ) {
+       // 0x123
         printf( "Segmentation fault \nline number %d\n", line );
         exit ( EXIT_FAILURE );
     }
@@ -305,18 +323,12 @@ Mode_t interface ()
             i = 0;
         }
     }
-    if ( feof ( stdin ) ) {
-        puts ( "End of file reached" );
-    }
-    else if ( ferror ( stdin ) ) {
-        perror ( "getchar()" );
-        fprintf ( stderr, "getchar() failed in file %s at line # %d\n", __FILE__,__LINE__-9 );
-        exit ( EXIT_FAILURE );
-    }
-    if ( strcmp( buf, "linear" ) == 0 || strcmp( buf, "1") == 0 ) {
+    if ( strcmp( buf, "linear" ) == 0 ||
+         strcmp( buf, "1") == 0 ) {
         return LINEAR;
     }
-    else if ( strcmp( buf, "quadratic" ) == 0 || strcmp( buf, "2") == 0 ) {
+    else if ( strcmp( buf, "quadratic" ) == 0 ||
+              strcmp( buf, "2") == 0 ) {
         return QUADRATIC;
     }
     else {
@@ -350,6 +362,49 @@ void get_coeff ( const char *coeff, double *n_coeff )
 //            exit(EXIT_FAILURE);
 //         }
 //}
+
+bool Test_One_Case ( Coeff_t *func_coeffs, Roots_t *ref_roots, int choice, int n_roots_ref )
+{
+    Roots_t roots ; // initil
+    const int n_roots = solve ( func_coeffs, roots, &choice );
+    if ( choice == LINEAR ) {
+        if ( roots.x1 != ref_roots->x1 || n_roots != n_roots_ref ) {
+            printf ( " x1  = %g, n_roots = %d\nexpected: x1 = %g, n_roots = %d", roots.x1, n_roots, ref_roots->x1, n_roots_ref );
+            return false;
+        }
+        else {
+            printf ( "Test OK" );
+        }
+    }
+    else if ( choice == QUADRATIC ) {
+        if ( roots.x1 != ref_roots->x1 || roots.x2 != ref_roots->x2 || n_roots != n_roots_ref ) {
+            printf ( " x1 = %g, x2 = %g, n_roots = %d\nexpected: x1 = %g, x2 = %g, n_roots = %d", roots.x1, roots.x2, n_roots, ref_roots->x1, ref_roots->x2, n_roots_ref );
+            return false;
+        }
+        else {
+            printf ( "Test OK" );
+        }
+    }
+    return true;
+}
+
+int Test_All_Cases ( Coeff_t *func_coeffs )
+{
+    int test_ok = 0;
+    const int N_TEST = 10;
+
+    func_coeffs->a = 1;
+    func_coeffs->b = 6;
+    func_coeffs->c = 9;
+
+    Roots_t ref_roots;
+
+    ref_roots.x1 = ref_roots.x2 = -3 ;
+    if ( Test_One_Case ( func_coeffs, &ref_roots, QUADRATIC, 1 ) ) {
+        ++test_ok;
+        // обнулять корни
+    }
+}
 
 
 
