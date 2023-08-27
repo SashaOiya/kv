@@ -24,15 +24,12 @@ $   Coeff_t func_coeffs = data->coeffs;
     Roots_t roots = {0} ;
     int n_roots = 0;
 $
-    if ( fabs ( func_coeffs.a - 0 ) < epsilon ) {  //
+    if ( compare_value_min ( func_coeffs.a, 0 ) ) {  //
 
         n_roots = solve_linear ( &func_coeffs, &roots );
 
-        //bool x1 = compare_value_min ( roots.x1, data->roots.x1 ); // is_x1_correct      // compare_value
-        //bool x2 = compare_value_min ( n_roots, data->roots.n_roots );
-
         if ( compare_value_min ( n_roots, data->roots.n_roots ) &&
-             compare_value_min ( roots.x1, data->roots.x1 ) ) {   // TODO:
+             compare_value_min ( roots.x1, data->roots.x1 ) ) {
 
             print_color ( "Test OK\n", COLOR_GREEN );
         }
@@ -48,10 +45,6 @@ $
     else {
 
         n_roots = solve_quadratic ( &func_coeffs, &roots );
-
-        //bool    x1_com = compare_value_min ( roots.x1, data->roots.x1     );
-        //bool    x2_com = compare_value_min ( roots.x2, data->roots.x2     );
-        //bool roots_com = compare_value_min ( n_roots, data->roots.n_roots );
 
         if ( compare_value_min ( roots.x1, data->roots.x1     ) &&
              compare_value_min ( roots.x2, data->roots.x2     ) &&
