@@ -1,0 +1,104 @@
+\doxysection{main.\+cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \"{}checker.\+h\"{}}\newline
+{\ttfamily \#include \"{}duck\+\_\+cat.\+h\"{}}\newline
+{\ttfamily \#include \"{}mem.\+h\"{}}\newline
+{\ttfamily \#include \"{}solve.\+h\"{}}\newline
+{\ttfamily \#include \"{}input.\+h\"{}}\newline
+{\ttfamily \#include \"{}output.\+h\"{}}\newline
+{\ttfamily \#include \"{}test.\+h\"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+TXLib.\+h \begin{DoxyNote}{Note}
+hi запуске программы вас встречает приветственная строка
+
+Предлагают выбрать опцию из списка, который можно посмотреть, написав help
+
+Выбор продолжается до тех пор, пока вы не напишете \textquotesingle{}bye-\/bye\textquotesingle{} или \textquotesingle{}start\textquotesingle{} 
+
+Опция bye-\/bye является выходом из программы, причём выйти можно только либо до начала решения, либо после. 
+
+Опция start запускает решение уравнения 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}Hi.\ This\ program\ solves\ both\ a\ quadratic\ equation\ and\ a\ linear\ one.\(\backslash\)n"{}}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Write\ 'help'\ to\ see\ the\ list\ of\ available\ functions:\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{bool}\ start\_indicator\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ equation\_type\ =\ 0;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ equation\_type\ =\ interface\_input\ (\ start\_indicator\ );}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ equation\_type\ ==\ BYE\ \ )\ \{}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\ equation\_type\ !=\ LINEAR\ \&\&\ equation\_type\ !=\ QUADRATIC\ );}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ start\_indicator\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{struct\ }Coeff\_t\ func\_coeff\ =\ \{\};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ TEST();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{struct\ }Roots\_t\ \ \ roots\ =\ \{\};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{enum}\ N\_Roots\_t\ n\_roots\ =\ ROOT\_ERR;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\ equation\_type\ )\ \{}
+\DoxyCodeLine{00045\ \$\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ LINEAR:}
+\DoxyCodeLine{00046\ \$\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get\_coeff\ (\ \textcolor{stringliteral}{"{}K"{}},\ \&func\_coeff.b\ );}
+\DoxyCodeLine{00047\ \$\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ get\_coeff\ (\ \textcolor{stringliteral}{"{}B"{}},\ \&func\_coeff.c\ );}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \$\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_roots\ =\ solve\_linear\ (\ \&func\_coeff,\ \&roots\ );}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \$\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00052\ \$\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ QUADRATIC:}
+\DoxyCodeLine{00053\ \$\ \ \ \ \ \ \ \ \ \ \ get\_coeff\ (\ \textcolor{stringliteral}{"{}A"{}},\ \&func\_coeff.a\ );}
+\DoxyCodeLine{00054\ \$\ \ \ \ \ \ \ \ \ \ \ get\_coeff\ (\ \textcolor{stringliteral}{"{}B"{}},\ \&func\_coeff.b\ );}
+\DoxyCodeLine{00055\ \$\ \ \ \ \ \ \ \ \ \ \ get\_coeff\ (\ \textcolor{stringliteral}{"{}C"{}},\ \&func\_coeff.c\ );}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \$\ \ \ \ \ \ \ \ \ \ \ n\_roots\ =\ solve\_quadratic\ (\ \&func\_coeff,\ \&roots\ );}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \$\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\ n\_roots\ ==\ ROOT\_ERR\ );}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ ASSERT\ (\ \&roots\ );}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ output\_roots\ (\ \&roots,\ n\_roots\ );}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \$\ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ equation\_type\ =\ interface\_input\ (\ start\_indicator\ );}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ equation\_type\ ==\ BYE\ \ )\ \{}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \$\ \ \ \}\ \textcolor{keywordflow}{while}\ (\ equation\_type\ !=\ BYE\ );}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00078\ \}}
+
+\end{DoxyCode}

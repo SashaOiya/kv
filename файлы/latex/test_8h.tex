@@ -1,0 +1,43 @@
+\doxysection{test.\+h File Reference}
+\hypertarget{test_8h}{}\label{test_8h}\index{test.h@{test.h}}
+{\ttfamily \#include \"{}solve.\+h\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{test_8h_a743243184f6b2dd0a0066749195e190c}{Test\+\_\+\+One\+\_\+\+Case}} (\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}data)
+\item 
+int \mbox{\hyperlink{test_8h_a93328e42d665e2ec0307633c3e041e90}{Test\+\_\+\+All\+\_\+\+Cases}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test_8h_a93328e42d665e2ec0307633c3e041e90}\label{test_8h_a93328e42d665e2ec0307633c3e041e90} 
+\index{test.h@{test.h}!Test\_All\_Cases@{Test\_All\_Cases}}
+\index{Test\_All\_Cases@{Test\_All\_Cases}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{Test\_All\_Cases()}{Test\_All\_Cases()}}
+{\footnotesize\ttfamily int Test\+\_\+\+All\+\_\+\+Cases (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{test_8h_a743243184f6b2dd0a0066749195e190c}\label{test_8h_a743243184f6b2dd0a0066749195e190c} 
+\index{test.h@{test.h}!Test\_One\_Case@{Test\_One\_Case}}
+\index{Test\_One\_Case@{Test\_One\_Case}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{Test\_One\_Case()}{Test\_One\_Case()}}
+{\footnotesize\ttfamily bool Test\+\_\+\+One\+\_\+\+Case (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+Does one test. Compares the return value from the solution with the reference solution
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Pointer to the structure of reference coefficients and roots\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Writes \"{}test ok\"{} if the value from the solution coincides with the reference valu; writes the roots and the number of roots from the solution and from the reference. 
+\end{DoxyNote}
+\begin{DoxyParagraph}{Usage example }
+
+\end{DoxyParagraph}

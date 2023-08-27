@@ -1,67 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <cmath>
+#include <stdarg.h>
+#include <string.h>
+#include <iostream>
+#include <stdint.h>
+#include <stdio.h>
+#include <cmath>
+#include <string.h>
+#include <ctype.h>
 #include "checker.h"
 #include "duck_cat.h"
+#include "color.h"
+#include "mem.h"
 
-bool buf_overflow ( const int MAX_BUF_VALUE, int *i, bool n_overflow );
+void print_color ( const char *c, const int COLOR, ... )
+{
+    HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
+
+    va_list args;
+    va_start ( args, COLOR );
+
+    SetConsoleTextAttribute ( hConsole, COLOR );
+
+    printf ( (char *)c, COLOR, args );
+
+    SetConsoleTextAttribute ( hConsole, 15 );
+
+    va_end ( args );
+}
 
 void print_duck ( const int n_duck )
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     switch ( n_duck % 4 ) {
         case 1:
-            SetConsoleTextAttribute ( hConsole, 10 );
-
-            printf ( "incorrect input\t\t________________________________________________\n"
-                                  "\t\t\t__________*******_______________________________\n"
-                                  "\t\t\t________***    ****_____________________________\n"
-                                  "\t\t\t______****   0   ****___________________________\n"
-                                  "\t\t\t__(////////        ***__________________________\n"
-                                  "\t\t\t___(////////         ***________________________\t"
-                                                                       "input coefficient: " );
-            SetConsoleTextAttribute ( hConsole, 15 );
-
+            print_color ( "incorrect input\t\t________________________________________________\n"
+                                       "\t\t\t__________*******_______________________________\n"
+                                       "\t\t\t________***    ****_____________________________\n"
+                                       "\t\t\t______****   0   ****___________________________\n"
+                                       "\t\t\t__(////////        ***__________________________\n"
+                                       "\t\t\t___(////////         ***________________________\t"
+                                       "input coefficient: ", COLOR_GREEN );
             break;
         case 2:
-            SetConsoleTextAttribute ( hConsole, 10 );
-
-            printf ( "incorrect input\t\t_________**         **__________________________\n"
-                                  "\t\t\t___________****)     **_________________________\n"
-                                  "\t\t\t________________)    **_________________________\n"
-                                  "\t\t\t_________________)    ** _______________________\n"
-                                  "\t\t\t_________________)     **_______________________\n"
-                                  "\t\t\t_________________)      UU_______________ )))___\t"
-                                                                       "input coefficient: " );
-            SetConsoleTextAttribute ( hConsole, 15 );
-
+            print_color ( "incorrect input\t\t_________**         **__________________________\n"
+                                       "\t\t\t___________****)     **_________________________\n"
+                                       "\t\t\t________________)    **_________________________\n"
+                                       "\t\t\t_________________)    ** _______________________\n"
+                                       "\t\t\t_________________)     **_______________________\n"
+                                       "\t\t\t_________________)      UU_______________ )))___\t"
+                                       "input coefficient: ", COLOR_GREEN );
             break;
         case 3:
-            SetConsoleTextAttribute ( hConsole, 10 );
-
-            printf ( "incorrect input\t\t________________))       UUUU________ ((  )))___\n"
-                                  "\t\t\t_______________))       UUUUUUUU__ ((   )))_____\n"
-                                  "\t\t\t______________))          UUUUUUU ((   )))______\n"
-                                  "\t\t\t_____________)                       )))________\n"
-                                  "\t\t\t____________)                        )))________\n"
-                                  "\t\t\t___________))                        )))________\t"
-                                                                       "input coefficient: " );
-            SetConsoleTextAttribute ( hConsole, 15 );
-
+            print_color ( "incorrect input\t\t________________))       UUUU________ ((  )))___\n"
+                                       "\t\t\t_______________))       UUUUUUUU__ ((   )))_____\n"
+                                       "\t\t\t______________))          UUUUUUU ((   )))______\n"
+                                       "\t\t\t_____________)                       )))________\n"
+                                       "\t\t\t____________)                        )))________\n"
+                                       "\t\t\t___________))                        )))________\t"
+                                       "input coefficient: ", COLOR_GREEN );
             break;
         case 0:
-            SetConsoleTextAttribute ( hConsole, 10 );
-
-            printf ( "incorrect input\t\t___________))                       )))_________\n"
-                                  "\t\t\t____________))                       )))________\n"
-                                  "\t\t\t_____________))                     )))_________\n"
-                                  "\t\t\t______________))                 )))____________\n"
-                                  "\t\t\t_______________))<<<<<<<<<<<<<<<<_______________\n"
-                                  "\t\t\t________________________________________________\t"
-                                                                       "input coefficient: " );
-            SetConsoleTextAttribute ( hConsole, 15 );
-
+            print_color ( "incorrect input\t\t___________))                       )))_________\n"
+                                       "\t\t\t____________))                       )))________\n"
+                                       "\t\t\t_____________))                     )))_________\n"
+                                       "\t\t\t______________))                 )))____________\n"
+                                       "\t\t\t_______________))<<<<<<<<<<<<<<<<_______________\n"
+                                       "\t\t\t________________________________________________\t"
+                                       "input coefficient: ", COLOR_GREEN );
             break;
         default :
-            printf ( "programmer error, sorry" );
+            print_color ( "programmer error, sorry", COLOR_BLUE );
             break;
      }
 }
@@ -73,9 +83,11 @@ $   char buf[MAX_BUF_VALUE] = {0};
 $   bool n_overflow = false;
     int start_check = 0;
 
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     for ( int c = 0, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
+
+        if ( isspace ( c ) ) {
+            i--;
+        }
 
 $       buf[i] = (char)c;
 $       n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
@@ -83,7 +95,7 @@ $       n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
 
     if ( start_indicator && strcmp ( buf, "start" ) == 0 ) {
 
-        printf ( "Select mode : linear (1) or quadratic (2)\n" );
+        print_color ( "Select mode : linear (1) or quadratic (2) : ", COLOR_BLUE );
 
         do {
 
@@ -93,11 +105,15 @@ $           bool n_overflow = false;
 
             for ( int c, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
 
+                if ( isspace ( c ) ) {
+                    i--;
+                }
+
 $               buf[i] = (char)c;
 $               n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
             }
 
-            if ( strcmp ( buf, "linear" ) == 0 ||
+            if ( strcmp ( buf, "linear" ) == 0 ||      // func --
                  strcmp ( buf, "1") == 0 ) {
 
 $               return LINEAR;
@@ -109,17 +125,7 @@ $               return QUADRATIC;
             }
             else {
 
-                SetConsoleTextAttribute ( hConsole, 4 );
-
-                printf ( "Please enter correctly\n\n"
-                        "           _,/|             _.-''``-...___..--';   \n"
-                        "          /_ \'.      __..-' ,      ,--...--'''    \n"
-                        "         'L..   ''''               /'              \n"
-                        "           -';'               ;   ; ;              \n"
-                        "  __...--''     ___...--_..'  .;.'                 \n"
-                        " (,__....----'''       (,..--''                  \n\n" );
-
-                SetConsoleTextAttribute ( hConsole, 15 );
+                print_cat_small ();
 
                 start_check = ERROR;
             }
@@ -129,7 +135,7 @@ $               return QUADRATIC;
     else if ( strcmp( buf, "help" ) == 0 ) {
 
         printf ( "Here is a list of supported features :"
-                 "\n\nstart\n\nhelp\n\nbye-bye\n\noption_meow\n\n" );
+                 "\n\n  start  \n\n  help  \n\n  bye-bye  \n\n  option-meow  \n\n" );
 
 $       return HELP;
     }
@@ -137,45 +143,57 @@ $       return HELP;
 
         return BYE;
     }
-    else if ( strcmp ( buf, "option_meow" ) == 0 ) {
+    else if ( strcmp ( buf, "option-meow" ) == 0 ) {
 
-        SetConsoleTextAttribute ( hConsole, 12 );
-
-        printf ( "   ,';,               ,';,                                     \n"
-                 "  ,' , :;             ; ,,.;                                   \n"
-                 "  | |:; :;           ; ;:|.|                                   \n"
-                 "| |::; ';,,,,,,,,,'  ;:|.|    ,,,;;;;;;;;,,,                   \n"
-                 "; |''  ___      ___   ';.;,,''             ''';,,,             \n"
-                 "',:   /   \    /   \    .;.                      '';,          \n"
-                 ";    /    |    |    \     ;,                        ';,        \n"
-                 ";    |    /|    |\    |    :|                          ';,     \n"
-                 "|    |    \|    |/    |    :|     ,,,,,,,               ';,    \n"
-                 "|     \ ___| __ |____/     :;  ,''                        ;,   \n"
-                 ";           /  \          :; ,'                           :;   \n"
-                 "',        `----'        :; |'                            :|    \n"
-                 "',,  `----------'  ..;',|'                             :|      \n"
-                 ",'  ',,,,,,,,,,,;;;;''  |'                              :;     \n"
-                 ",'  ,,,,                  |,                              :;   \n"
-                 "| ,'   :;, ,,''''''''''   '|.   ...........                ';, \n"
-                 ";       :;|               ,,';;;''''''                      ';,\n"
-                 "',,,,,;;;|.............,'                          ....      ;,\n"
-                 "       ''''''''''''|        .............;;;;;;;''''',    ':;  \n"
-                 "                    |;;;;;;;;'''''''''''''             ;    :| \n"
-                 "                                                    ,,,'     :;\n"
-                 "                                        ,,,,,,,,,,''       .;' \n"
-                 "                                        |              .;;;;'  \n"
-                 "                                        ';;;;;;;;;;;;;;'       \n" );
-
-        SetConsoleTextAttribute ( hConsole, 15 );
+        print_cat_big ();
 
 $       return OPTION_MEOW;
     }
     else {
 
-        printf ( "This function was not found. Use the list of presented functions:\n" );
+        print_color ( "This option was not found. Use the list of presented functions:\n", COLOR_BLUE );
 
         return Error;
     }
+}
+
+void print_cat_small ()
+{
+    print_color ( "Please enter correctly\n\n"
+                  "           _,/|             _.-''``-...___..--';   \n"
+                  "          /_ \'.      __..-' ,      ,--...--'''    \n"
+                  "         'L..   ''''               /'              \n"
+                  "           -';'               ;   ; ;              \n"
+                  "  __...--''     ___...--_..'  .;.'                 \n"
+                  " (,__....----'''       (,..--''                  \n\n", COLOR_RED );
+
+}
+
+void print_cat_big ()
+{
+    print_color ( "   ,';,               ,';,                                     \n"
+                  "  ,' , :;             ; ,,.;                                   \n"
+                  "  | |:; :;           ; ;:|.|                                   \n"
+                  "| |::; ';,,,,,,,,,'  ;:|.|    ,,,;;;;;;;;,,,                   \n"
+                  "; |''  ___      ___   ';.;,,''             ''';,,,             \n"
+                  "',:   /   \    /   \    .;.                      '';,          \n"
+                  ";    /    |    |    \     ;,                        ';,        \n"
+                  ";    |    /|    |\    |    :|                          ';,     \n"
+                  "|    |    \|    |/    |    :|     ,,,,,,,               ';,    \n"
+                  "|     \ ___| __ |____/     :;  ,''                        ;,   \n"
+                  ";           /  \          :; ,'                           :;   \n"
+                  "',        `----'        :; |'                            :|    \n"
+                  "',,  `----------'  ..;',|'                             :|      \n"
+                  ",'  ',,,,,,,,,,,;;;;''  |'                              :;     \n"
+                  ",'  ,,,,                  |,                              :;   \n"
+                  "| ,'   :;, ,,''''''''''   '|.   ...........                ';, \n"
+                  ";       :;|               ,,';;;''''''                      ';,\n"
+                  "',,,,,;;;|.............,'                          ....      ;,\n"
+                  "       ''''''''''''|        .............;;;;;;;''''',    ':;  \n"
+                  "                    |;;;;;;;;'''''''''''''             ;    :| \n"
+                  "                                                    ,,,'     :;\n"
+                  "                                        ,,,,,,,,,,''       .;' \n"
+                  "...............................................................\n", COLOR_PINK );
 }
 
 

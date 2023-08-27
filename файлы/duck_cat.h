@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <cmath>
-#include <windows.h>
-#include <string.h>
+#ifndef DUCK_CAT_H
+#define DUCK_CAT_H
 
 enum Mode_t {
     LINEAR      = 0,
@@ -15,3 +13,7 @@ enum Mode_t {
 
 void print_duck ( const int n_duck );
 Mode_t interface_input ( bool start_indicator );
+void print_cat_small ();
+void print_cat_big ();
+
+#endif

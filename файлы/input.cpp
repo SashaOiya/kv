@@ -1,11 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <cmath>
+#include <stdarg.h>
+#include <string.h>
+#include <iostream>
+#include <stdint.h>
+#include <stdio.h>
+#include <cmath>
+#include <string.h>
+#include <ctype.h>
 #include "checker.h"
 #include "input.h"
 #include "duck_cat.h"
 #include "mem.h"
+#include "solve.h"
+#include "color.h"
+
 
 void get_one_coeff ( double *func_coeff)
 {
     ASSERT ( func_coeff );
+
+    *func_coeff = 0;
 
     const int MAX_BUF_VALUE = 257;
     bool incorrect_input = false,  overflow_indicator = false;
@@ -13,7 +30,7 @@ void get_one_coeff ( double *func_coeff)
     static int n_duck = 0;
     double value = 0;
 
-    printf ( "input coefficient: " );
+    print_color ( "input coefficient: ", COLOR_GREEN );
 
     do {
         if ( incorrect_input ) {
@@ -36,18 +53,18 @@ void get_one_coeff ( double *func_coeff)
             overflow_indicator = incorrect_input = buf_overflow ( MAX_BUF_VALUE, &i, incorrect_input );
         }
 
-        value = strtod ( &buf[0], &end );
+        value = strtod ( buf, &end );
 
         ASSERT ( end );
 
-        if ( ( fabs ( value - 0 ) <= epsilon && buf[0] != '0' ) || *end != '\0' ) {
+        if ( ( compare_value_min ( value, 0 ) && buf[0] != '0' ) || *end != '\0' ) {
 
             incorrect_input = true;
         }
 
-        if (errno == ERANGE){
+        if ( errno == ERANGE ) {
 
-            printf("range error, got ");
+            print_color ("range error, got ", COLOR_RED );
             errno = 0;
         }
 
@@ -56,9 +73,9 @@ void get_one_coeff ( double *func_coeff)
     *func_coeff = value;
 }
 
-void get_coeff ( const char *coeff, double *n_coeff )
+void get_coeff ( const char *coeff_name, double *coeff )  // coeff-PTR
 {
-    get_one_coeff ( n_coeff );
+    get_one_coeff ( coeff );
 
-    printf ( "%c = %g\n",*coeff, *n_coeff );
+    printf ( "%c = %g\n", *coeff_name, *coeff );
 }
