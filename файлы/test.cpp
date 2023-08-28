@@ -17,14 +17,16 @@
 #include "solve.h"
 #include "mem.h"
 
-bool Test_One_Case ( Coeff_Root *data )
+bool Test_One_Case ( Coeff_Root *data, int n_test )
 {
 $   Coeff_t func_coeffs = data->coeffs;
 
     Roots_t roots = {0} ;
     int n_roots = 0;
+
+    printf ( "Test number: %d\t", n_test );
 $
-    if ( compare_value_min ( func_coeffs.a, 0 ) ) {  //
+    if ( compare_value_min ( func_coeffs.a, 0 ) ) {
 
         n_roots = solve_linear ( &func_coeffs, &roots );
 
@@ -55,7 +57,7 @@ $
         else {
 
             print_color ( "x1 = %g, x2 = %g, n_roots = %d\n", COLOR_RED, roots.x1, roots.x2, n_roots, data->roots.x1 );
-            print_color ( "expected:\nx1 = %g, x2 = %g, n_roots = %d\n\n", COLOR_RED, data->roots.x2, data->roots.n_roots );
+            print_color ( "expected: x1 = %g, x2 = %g, n_roots = %d\n\n", COLOR_RED, data->roots.x1, data->roots.x2, data->roots.n_roots );
 
             return false;
         }
@@ -74,14 +76,14 @@ $   Coeff_Root data[] = {
         { {  1,   5, 6 }, {  -3, -2, ROOT_TWO } },
         { { 10, 100, 0 }, { -10,  0, ROOT_TWO } },
         { {  0,   0, 0 }, {   0,  0, ROOT_ALL } },
-        { {  1,   2, 3 }, {   0,  0, ROOT_ZER } },
+        { {  1,   2, 3 }, {   1,  0, ROOT_ZER } },
     };
 
     const int N_TEST = sizeof (data) / sizeof (data[0]);
 
-    for (int i = 0; i < N_TEST; ++i ) {
+    for (int i = 0, n_test = 1; i < N_TEST; ++i ) {
 
-$       if ( Test_One_Case ( &data[i] ) ) {       // n_test
+$       if ( Test_One_Case ( &data[i], n_test ) ) {
 $           ++n_test_ok;
         }
     }

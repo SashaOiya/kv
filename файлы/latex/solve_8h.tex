@@ -1,0 +1,178 @@
+\doxysection{solve.\+h File Reference}
+\hypertarget{solve_8h}{}\label{solve_8h}\index{solve.h@{solve.h}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_coeff__t}{Coeff\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_roots__t}{Roots\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}} \{ \newline
+\mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f}{ROOT\+\_\+\+ZER}} = 0
+, \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3}{ROOT\+\_\+\+ONE}} = 1
+, \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba4e405cf422561d77e90bd5ebfb6c40d1}{ROOT\+\_\+\+TWO}} = 2
+, \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bbad3cc16082ccdadc7de083f38e7a562c4}{ROOT\+\_\+\+ALL}} = 3
+, \newline
+\mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba444b7d5003ccd28019787d287302214e}{ROOT\+\_\+\+ERR}} = 4
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}} \mbox{\hyperlink{solve_8h_a723da6aafd04e45e34a714b695983e51}{solve\+\_\+linear}} (\mbox{\hyperlink{struct_coeff__t}{Coeff\+\_\+t}} \texorpdfstring{$\ast$}{*}func\+\_\+coeff, \mbox{\hyperlink{struct_roots__t}{Roots\+\_\+t}} \texorpdfstring{$\ast$}{*}roots)
+\item 
+\mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}} \mbox{\hyperlink{solve_8h_a20a0605d735f37565a9213b2de28d8b9}{solve\+\_\+quadratic}} (\mbox{\hyperlink{struct_coeff__t}{Coeff\+\_\+t}} \texorpdfstring{$\ast$}{*}func\+\_\+coeff, \mbox{\hyperlink{struct_roots__t}{Roots\+\_\+t}} \texorpdfstring{$\ast$}{*}roots)
+\item 
+bool \mbox{\hyperlink{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}{compare\+\_\+value\+\_\+min}} (double x1, double x2)
+\item 
+bool \mbox{\hyperlink{solve_8h_aba3d40e81ad7592f186340bb82037e7c}{compare\+\_\+value\+\_\+max}} (double x1, double x2)
+\item 
+void \mbox{\hyperlink{solve_8h_ad406f1551315e1213982dda988efb446}{fix\+\_\+zero}} (double \texorpdfstring{$\ast$}{*}x)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \mbox{\hyperlink{solve_8h_a596344e5a2992d2beec43b76a6294de0}{EPSILON}} = 1e-\/6
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bb}\label{solve_8h_a193322088f3626a33b9be04d7ec774bb} 
+\index{solve.h@{solve.h}!N\_Roots\_t@{N\_Roots\_t}}
+\index{N\_Roots\_t@{N\_Roots\_t}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{N\_Roots\_t}{N\_Roots\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_ZER@{ROOT\_ZER}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_ZER@{ROOT\_ZER}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f}\label{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f} 
+ROOT\+\_\+\+ZER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_ONE@{ROOT\_ONE}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_ONE@{ROOT\_ONE}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3}\label{solve_8h_a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3} 
+ROOT\+\_\+\+ONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_TWO@{ROOT\_TWO}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_TWO@{ROOT\_TWO}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bba4e405cf422561d77e90bd5ebfb6c40d1}\label{solve_8h_a193322088f3626a33b9be04d7ec774bba4e405cf422561d77e90bd5ebfb6c40d1} 
+ROOT\+\_\+\+TWO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_ALL@{ROOT\_ALL}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_ALL@{ROOT\_ALL}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bbad3cc16082ccdadc7de083f38e7a562c4}\label{solve_8h_a193322088f3626a33b9be04d7ec774bbad3cc16082ccdadc7de083f38e7a562c4} 
+ROOT\+\_\+\+ALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_ERR@{ROOT\_ERR}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_ERR@{ROOT\_ERR}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bba444b7d5003ccd28019787d287302214e}\label{solve_8h_a193322088f3626a33b9be04d7ec774bba444b7d5003ccd28019787d287302214e} 
+ROOT\+\_\+\+ERR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{solve_8h_aba3d40e81ad7592f186340bb82037e7c}\label{solve_8h_aba3d40e81ad7592f186340bb82037e7c} 
+\index{solve.h@{solve.h}!compare\_value\_max@{compare\_value\_max}}
+\index{compare\_value\_max@{compare\_value\_max}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{compare\_value\_max()}{compare\_value\_max()}}
+{\footnotesize\ttfamily bool compare\+\_\+value\+\_\+max (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{x2 }\end{DoxyParamCaption})}
+
+The function compares two values
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & The first value being compared \\
+\hline
+{\em x2} & The second value being compared\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns tur if the values are not equal. 
+
+Returns false if the values are equal 
+\end{DoxyNote}
+\Hypertarget{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}\label{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743} 
+\index{solve.h@{solve.h}!compare\_value\_min@{compare\_value\_min}}
+\index{compare\_value\_min@{compare\_value\_min}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{compare\_value\_min()}{compare\_value\_min()}}
+{\footnotesize\ttfamily bool compare\+\_\+value\+\_\+min (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{x2 }\end{DoxyParamCaption})}
+
+The function compares two values
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & The first value being compared \\
+\hline
+{\em x2} & The second value being compared\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns true if the values are equal. 
+
+Returns false if the values are not equal 
+\end{DoxyNote}
+\Hypertarget{solve_8h_ad406f1551315e1213982dda988efb446}\label{solve_8h_ad406f1551315e1213982dda988efb446} 
+\index{solve.h@{solve.h}!fix\_zero@{fix\_zero}}
+\index{fix\_zero@{fix\_zero}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{fix\_zero()}{fix\_zero()}}
+{\footnotesize\ttfamily void fix\+\_\+zero (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{x }\end{DoxyParamCaption})}
+
+The function compares the value of a variable with zero
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}x1} & Pointer to the value being compared\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If the value of a variable is close to zero, then assigns the value 0 to this variable 
+\end{DoxyNote}
+\Hypertarget{solve_8h_a723da6aafd04e45e34a714b695983e51}\label{solve_8h_a723da6aafd04e45e34a714b695983e51} 
+\index{solve.h@{solve.h}!solve\_linear@{solve\_linear}}
+\index{solve\_linear@{solve\_linear}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{solve\_linear()}{solve\_linear()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}} solve\+\_\+linear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coeff__t}{Coeff\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{func\+\_\+coeff,  }\item[{\mbox{\hyperlink{struct_roots__t}{Roots\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{roots }\end{DoxyParamCaption})}
+
+The function solves the linear equation
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}func\+\_\+coeff} & Pointer to an element of the coefficient structure \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}roots} & Pointer to a root structure element\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns the number of roots of the equation. 
+
+Passes new values to the elements of the root structure 
+\end{DoxyNote}
+\Hypertarget{solve_8h_a20a0605d735f37565a9213b2de28d8b9}\label{solve_8h_a20a0605d735f37565a9213b2de28d8b9} 
+\index{solve.h@{solve.h}!solve\_quadratic@{solve\_quadratic}}
+\index{solve\_quadratic@{solve\_quadratic}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{solve\_quadratic()}{solve\_quadratic()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}} solve\+\_\+quadratic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coeff__t}{Coeff\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{func\+\_\+coeff,  }\item[{\mbox{\hyperlink{struct_roots__t}{Roots\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{roots }\end{DoxyParamCaption})}
+
+The function solves the quadratic equation
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}func\+\_\+coeff} & Pointer to an element of the coefficient structure \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}roots} & Pointer to a root structure element\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns the number of roots of the equation. 
+
+Passes new values to the elements of the root structure 
+\end{DoxyNote}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{solve_8h_a596344e5a2992d2beec43b76a6294de0}\label{solve_8h_a596344e5a2992d2beec43b76a6294de0} 
+\index{solve.h@{solve.h}!EPSILON@{EPSILON}}
+\index{EPSILON@{EPSILON}!solve.h@{solve.h}}
+\doxysubsubsection{\texorpdfstring{EPSILON}{EPSILON}}
+{\footnotesize\ttfamily const double EPSILON = 1e-\/6}
+

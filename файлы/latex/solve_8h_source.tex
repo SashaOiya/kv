@@ -1,0 +1,51 @@
+\doxysection{solve.\+h}
+\hypertarget{solve_8h_source}{}\label{solve_8h_source}\mbox{\hyperlink{solve_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SOLVE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SOLVE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_coeff__t}{Coeff\_t}}\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_coeff__t_ab68956b2f53f29747872bc222fa9677f}{a}};}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_coeff__t_aecb0ffa3b330f3324f89c363298e7dbd}{b}};}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_coeff__t_a60c81551a38828757108f0d8ded84998}{c}};}
+\DoxyCodeLine{00008\ \};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\_Roots\_t}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f}{ROOT\_ZER}}\ =\ 0,}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3}{ROOT\_ONE}}\ =\ 1,}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba4e405cf422561d77e90bd5ebfb6c40d1}{ROOT\_TWO}}\ =\ 2,}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bbad3cc16082ccdadc7de083f38e7a562c4}{ROOT\_ALL}}\ =\ 3,}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bba444b7d5003ccd28019787d287302214e}{ROOT\_ERR}}\ =\ 4}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_roots__t}{Roots\_t}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_roots__t_ab75ecb84ca9b788580a9b4796cb7dc5f}{x1}};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_roots__t_ad283d34a12cef7cc0c1b4e8adcca564a}{x2}};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_roots__t_af03ec26e5482bbb02bf053dbf4f38b4b}{n\_roots}};}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{solve_8h_a596344e5a2992d2beec43b76a6294de0}{EPSILON}}\ =\ 1e-\/6;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00036\ \textcolor{comment}{}\textcolor{comment}{//\}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00037\ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\_Roots\_t}}\ \mbox{\hyperlink{solve_8h_a723da6aafd04e45e34a714b695983e51}{solve\_linear}}\ (\ \mbox{\hyperlink{struct_coeff__t}{Coeff\_t}}\ *func\_coeff,\ \mbox{\hyperlink{struct_roots__t}{Roots\_t}}\ *roots\ );}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//\{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00049\ \textcolor{comment}{}\textcolor{comment}{//\}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\_Roots\_t}}\ \mbox{\hyperlink{solve_8h_a20a0605d735f37565a9213b2de28d8b9}{solve\_quadratic}}\ (\ \mbox{\hyperlink{struct_coeff__t}{Coeff\_t}}\ *func\_coeff,\ \mbox{\hyperlink{struct_roots__t}{Roots\_t}}\ *roots\ );}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00062\ \textcolor{comment}{}\textcolor{comment}{//\}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}{compare\_value\_min}}\ (\ \textcolor{keywordtype}{double}\ x1,\ \textcolor{keywordtype}{double}\ x2);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00075\ \textcolor{comment}{}\textcolor{comment}{//\}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{solve_8h_aba3d40e81ad7592f186340bb82037e7c}{compare\_value\_max}}\ (\ \textcolor{keywordtype}{double}\ x1,\ \textcolor{keywordtype}{double}\ x2);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{//\{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00087\ \textcolor{comment}{}\textcolor{comment}{//\}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{solve_8h_ad406f1551315e1213982dda988efb446}{fix\_zero}}\ (\ \textcolor{keywordtype}{double}\ *x\ );}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SOLVE\_H}}
+
+\end{DoxyCode}

@@ -1,5 +1,10 @@
 #include <windows.h>
 
+//{----------------------------------------------------------------------------
+//!
+//! Enumeration of color values
+//!
+//}----------------------------------------------------------------------------
 enum Color_t {
     COLOR_GREEN = 10,
     COLOR_WHILE = 15,
@@ -8,4 +13,12 @@ enum Color_t {
     COLOR_BLUE  =  9
 };
 
-void print_color ( const char *c, const int COLOR, ... ); // enum
+//{----------------------------------------------------------------------------
+//!
+//! Prints the specified line with the specified color
+//!
+//! @param *line Pointer to the printed line
+//! @param COLOR Element of the structure of colors
+//!
+//}----------------------------------------------------------------------------
+void print_color ( const char *line, enum Color_t COLOR, ... );

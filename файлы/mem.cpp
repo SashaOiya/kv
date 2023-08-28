@@ -1,15 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <cmath>
-#include <stdarg.h>
-#include <string.h>
-#include <iostream>
-#include <stdint.h>
-#include <stdio.h>
-#include <cmath>
-#include <string.h>
-#include <ctype.h>
 #include "mem.h"
 #include "checker.h"
 #include "color.h"
@@ -33,11 +22,11 @@ void my_memset ( void *val, const char number, const size_t value )
     }
 }
 
-bool buf_overflow ( const int MAX_BUF_VALUE, int *input_element_number, bool n_overflow )
+bool buf_overflow ( const int max_buf_value, int *input_element_number, bool n_overflow )
 {
     ASSERT ( input_element_number );
 
-    if ( *input_element_number + 1 > MAX_BUF_VALUE && n_overflow == false ) {
+    if ( *input_element_number + 1 > max_buf_value && n_overflow == false ) {
 
         print_color ( "buffer is full\n", COLOR_BLUE );
 
@@ -45,7 +34,7 @@ bool buf_overflow ( const int MAX_BUF_VALUE, int *input_element_number, bool n_o
 
         return ++n_overflow;
     }
-    else if ( *input_element_number + 1 > MAX_BUF_VALUE && n_overflow == true ) {
+    else if ( *input_element_number + 1 > max_buf_value && n_overflow == true ) {
 
         *input_element_number = 0;
     }

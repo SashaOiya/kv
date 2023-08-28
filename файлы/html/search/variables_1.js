@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['roots_0',['roots',['../struct_coeff___root.html#a830cedc5b1d8534ad20dcd0a070378b6',1,'Coeff_Root']]]
+  ['b_0',['b',['../struct_coeff__t.html#aecb0ffa3b330f3324f89c363298e7dbd',1,'Coeff_t']]]
 ];

@@ -73,7 +73,7 @@ void get_one_coeff ( double *func_coeff)
     *func_coeff = value;
 }
 
-void get_coeff ( const char *coeff_name, double *coeff_ptr )  // coeff-PTR
+void get_coeff ( const char *coeff_name, double *coeff_ptr )
 {
     get_one_coeff ( coeff_ptr );
 

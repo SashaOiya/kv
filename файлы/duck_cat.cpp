@@ -15,7 +15,7 @@
 #include "color.h"
 #include "mem.h"
 
-void print_color ( const char *c, const int COLOR, ... )
+void print_color ( const char *line, enum Color_t COLOR, ... )
 {
     HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
@@ -24,7 +24,7 @@ void print_color ( const char *c, const int COLOR, ... )
 
     SetConsoleTextAttribute ( hConsole, COLOR );
 
-    printf ( (char *)c, COLOR, args );
+    vprintf ( (char *)line, args );   //
 
     SetConsoleTextAttribute ( hConsole, 15 );
 
@@ -134,8 +134,8 @@ $               return QUADRATIC;
     }
     else if ( strcmp( buf, "help" ) == 0 ) {
 
-        printf ( "Here is a list of supported features :"
-                 "\n\n  start  \n\n  help  \n\n  bye-bye  \n\n  option-meow  \n\n" );
+        print_color ( "Here is a list of supported features :"
+                 "\n\n  start  \n\n  help  \n\n  bye-bye  \n\n  option-meow  \n\n", COLOR_BLUE );
 
 $       return HELP;
     }

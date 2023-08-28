@@ -18,18 +18,18 @@
 bool compare_value_min ( double x1, double x2)
 {
 
-    return fabs ( x1 - x2 ) < epsilon;
+    return fabs ( x1 - x2 ) < EPSILON;
 }
 
 bool compare_value_max ( double x1, double x2)
 {
 
-    return fabs ( x1 - x2 ) >= epsilon;
+    return fabs ( x1 - x2 ) >= EPSILON;
 }
 
 void fix_zero ( double *x )
 {
-    *x = ( fabs ( *x - 0 ) < epsilon ) ? 0: *x;
+    *x = ( fabs ( *x - 0 ) < EPSILON ) ? 0: *x;
 }
 
 N_Roots_t solve_linear ( Coeff_t *func_coeff, Roots_t *roots )
