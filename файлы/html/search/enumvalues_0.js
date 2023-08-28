@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['root_5fall_0',['ROOT_ALL',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bbad3cc16082ccdadc7de083f38e7a562c4',1,'solve.h']]],
-  ['root_5ferr_1',['ROOT_ERR',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bba444b7d5003ccd28019787d287302214e',1,'solve.h']]],
-  ['root_5fone_2',['ROOT_ONE',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3',1,'solve.h']]],
-  ['root_5ftwo_3',['ROOT_TWO',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bba4e405cf422561d77e90bd5ebfb6c40d1',1,'solve.h']]],
-  ['root_5fzer_4',['ROOT_ZER',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f',1,'solve.h']]]
+  ['color_5fblue_0',['COLOR_BLUE',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fda1340428efccb140dcbdb71aa6176f696',1,'color.h']]],
+  ['color_5fgreen_1',['COLOR_GREEN',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fdacfa9d8bbffc418447ed826f286abca02',1,'color.h']]],
+  ['color_5fpink_2',['COLOR_PINK',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fda1b93c096fbb90304018ed9977dc1dadc',1,'color.h']]],
+  ['color_5fred_3',['COLOR_RED',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fda592503b9434c1e751a92f3fc536d7950',1,'color.h']]],
+  ['color_5fwhite_4',['COLOR_WHITE',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fdad47b4c240a0109970bb2a7fe3a07d3ec',1,'color.h']]]
 ];

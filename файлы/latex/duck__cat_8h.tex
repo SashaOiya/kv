@@ -1,0 +1,142 @@
+\doxysection{duck\+\_\+cat.\+h File Reference}
+\hypertarget{duck__cat_8h}{}\label{duck__cat_8h}\index{duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f}{Mode\+\_\+t}} \{ \newline
+\mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532faf458de9479cd4f9384198137fb7713a1}{MODE\+\_\+\+LINEAR}} = 0
+, \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fae0cec5bf9f961c623b82e5c2ee1c81bf}{MODE\+\_\+\+QUADRATIC}} = 1
+, \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa99e3afddafefc9ae9c720a31e98251f4}{MODE\+\_\+\+ERROR}} = 2
+, \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa2ab2ea921d7cab148e47b16bdfda7d98}{MODE\+\_\+\+START}} = 3
+, \newline
+\mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa333db1e324b69e45a22f910cff41f077}{MODE\+\_\+\+HELP}} = 4
+, \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fab135f75b0f4a4ae28b61268c92da5c73}{MODE\+\_\+\+BYE}} = 5
+, \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa0030100afcb00ed193df96268dd8ad4d}{MODE\+\_\+\+OPTION\+\_\+\+MEOW}} = 6
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{duck__cat_8h_a6916485ddb58addde4c98d3952daaf7a}{print\+\_\+duck}} (const int n\+\_\+duck)
+\item 
+\mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f}{Mode\+\_\+t}} \mbox{\hyperlink{duck__cat_8h_a6a0eea26c3cf9893c9dc6b02db15a755}{interface\+\_\+input}} (bool start\+\_\+indicator)
+\item 
+void \mbox{\hyperlink{duck__cat_8h_a2b6660739c414c37cb8e0aa6ea7bffc2}{print\+\_\+cat\+\_\+small}} ()
+\item 
+void \mbox{\hyperlink{duck__cat_8h_aaf9a702da90455da55f4139a390d7fc0}{print\+\_\+cat\+\_\+big}} ()
+\item 
+void \mbox{\hyperlink{duck__cat_8h_ac7e32a5a9cde417d8a440ccbfdb3b177}{buf\+\_\+input}} (char \texorpdfstring{$\ast$}{*}buf, const int max\+\_\+buf\+\_\+value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f} 
+\index{duck\_cat.h@{duck\_cat.h}!Mode\_t@{Mode\_t}}
+\index{Mode\_t@{Mode\_t}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{Mode\_t}{Mode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f}{Mode\+\_\+t}}}
+
+Enumeration of return values for selecting the operating mode \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_LINEAR@{MODE\_LINEAR}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_LINEAR@{MODE\_LINEAR}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532faf458de9479cd4f9384198137fb7713a1}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532faf458de9479cd4f9384198137fb7713a1} 
+MODE\+\_\+\+LINEAR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_QUADRATIC@{MODE\_QUADRATIC}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_QUADRATIC@{MODE\_QUADRATIC}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fae0cec5bf9f961c623b82e5c2ee1c81bf}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fae0cec5bf9f961c623b82e5c2ee1c81bf} 
+MODE\+\_\+\+QUADRATIC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_ERROR@{MODE\_ERROR}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_ERROR@{MODE\_ERROR}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa99e3afddafefc9ae9c720a31e98251f4}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa99e3afddafefc9ae9c720a31e98251f4} 
+MODE\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_START@{MODE\_START}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_START@{MODE\_START}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa2ab2ea921d7cab148e47b16bdfda7d98}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa2ab2ea921d7cab148e47b16bdfda7d98} 
+MODE\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_HELP@{MODE\_HELP}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_HELP@{MODE\_HELP}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa333db1e324b69e45a22f910cff41f077}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa333db1e324b69e45a22f910cff41f077} 
+MODE\+\_\+\+HELP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_BYE@{MODE\_BYE}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_BYE@{MODE\_BYE}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fab135f75b0f4a4ae28b61268c92da5c73}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fab135f75b0f4a4ae28b61268c92da5c73} 
+MODE\+\_\+\+BYE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MODE\_OPTION\_MEOW@{MODE\_OPTION\_MEOW}!duck\_cat.h@{duck\_cat.h}}\index{duck\_cat.h@{duck\_cat.h}!MODE\_OPTION\_MEOW@{MODE\_OPTION\_MEOW}}}\Hypertarget{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa0030100afcb00ed193df96268dd8ad4d}\label{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532fa0030100afcb00ed193df96268dd8ad4d} 
+MODE\+\_\+\+OPTION\+\_\+\+MEOW&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{duck__cat_8h_ac7e32a5a9cde417d8a440ccbfdb3b177}\label{duck__cat_8h_ac7e32a5a9cde417d8a440ccbfdb3b177} 
+\index{duck\_cat.h@{duck\_cat.h}!buf\_input@{buf\_input}}
+\index{buf\_input@{buf\_input}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{buf\_input()}{buf\_input()}}
+{\footnotesize\ttfamily void buf\+\_\+input (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{const int}]{max\+\_\+buf\+\_\+value }\end{DoxyParamCaption})}
+
+Fills the array with the input elements
+
+\begin{DoxySeeAlso}{See also}
+bool \doxylink{mem_8h_a454ac8018a79f1be4f6567cc8d2c51bf}{buf\+\_\+overflow} ( const int max\+\_\+buf\+\_\+value, int \texorpdfstring{$\ast$}{*}input\+\_\+element\+\_\+number, bool n\+\_\+overflow )
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}buf} & Pointer to the beginning of the array to be filled \\
+\hline
+{\em max\+\_\+buf\+\_\+value} & Maximum number of array elements \\
+\hline
+\end{DoxyParams}
+\Hypertarget{duck__cat_8h_a6a0eea26c3cf9893c9dc6b02db15a755}\label{duck__cat_8h_a6a0eea26c3cf9893c9dc6b02db15a755} 
+\index{duck\_cat.h@{duck\_cat.h}!interface\_input@{interface\_input}}
+\index{interface\_input@{interface\_input}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{interface\_input()}{interface\_input()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{duck__cat_8h_a12c0d2c58f6ec2f4f2b2af14681e532f}{Mode\+\_\+t}} interface\+\_\+input (\begin{DoxyParamCaption}\item[{bool}]{start\+\_\+indicator }\end{DoxyParamCaption})}
+
+The function compares two values
+
+\begin{DoxySeeAlso}{See also}
+bool \doxylink{mem_8h_a454ac8018a79f1be4f6567cc8d2c51bf}{buf\+\_\+overflow} ( const int max\+\_\+buf\+\_\+value, int \texorpdfstring{$\ast$}{*}input\+\_\+element\+\_\+number, bool n\+\_\+overflow ) 
+
+void \doxylink{color_8h_aec7f8b165b3177b9479c093c2f6bdd44}{print\+\_\+color} ( const char \texorpdfstring{$\ast$}{*}c, enum \doxylink{color_8h_aac08c9c4b63f4dfa095c03fe6ecca1fd}{Color\+\_\+t} COLOR, ... ) 
+
+void \doxylink{duck__cat_8h_a2b6660739c414c37cb8e0aa6ea7bffc2}{print\+\_\+cat\+\_\+small} () 
+
+void \doxylink{duck__cat_8h_aaf9a702da90455da55f4139a390d7fc0}{print\+\_\+cat\+\_\+big} ()
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+indicator} & Number of starts written\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns the selected mode 
+\end{DoxyNote}
+\Hypertarget{duck__cat_8h_aaf9a702da90455da55f4139a390d7fc0}\label{duck__cat_8h_aaf9a702da90455da55f4139a390d7fc0} 
+\index{duck\_cat.h@{duck\_cat.h}!print\_cat\_big@{print\_cat\_big}}
+\index{print\_cat\_big@{print\_cat\_big}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{print\_cat\_big()}{print\_cat\_big()}}
+{\footnotesize\ttfamily void print\+\_\+cat\+\_\+big (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints a big cat \Hypertarget{duck__cat_8h_a2b6660739c414c37cb8e0aa6ea7bffc2}\label{duck__cat_8h_a2b6660739c414c37cb8e0aa6ea7bffc2} 
+\index{duck\_cat.h@{duck\_cat.h}!print\_cat\_small@{print\_cat\_small}}
+\index{print\_cat\_small@{print\_cat\_small}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{print\_cat\_small()}{print\_cat\_small()}}
+{\footnotesize\ttfamily void print\+\_\+cat\+\_\+small (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints a small cat \Hypertarget{duck__cat_8h_a6916485ddb58addde4c98d3952daaf7a}\label{duck__cat_8h_a6916485ddb58addde4c98d3952daaf7a} 
+\index{duck\_cat.h@{duck\_cat.h}!print\_duck@{print\_duck}}
+\index{print\_duck@{print\_duck}!duck\_cat.h@{duck\_cat.h}}
+\doxysubsubsection{\texorpdfstring{print\_duck()}{print\_duck()}}
+{\footnotesize\ttfamily void print\+\_\+duck (\begin{DoxyParamCaption}\item[{const int}]{n\+\_\+duck }\end{DoxyParamCaption})}
+
+Prints a duck
+
+\begin{DoxySeeAlso}{See also}
+void \doxylink{color_8h_aec7f8b165b3177b9479c093c2f6bdd44}{print\+\_\+color} ( const char \texorpdfstring{$\ast$}{*}c, enum \doxylink{color_8h_aac08c9c4b63f4dfa095c03fe6ecca1fd}{Color\+\_\+t} COLOR, ... )
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+duck} & The number of ducks already displayed ( == the number of incorrectly entered values ) \\
+\hline
+\end{DoxyParams}

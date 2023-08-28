@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['n_5froots_5ft_0',['N_Roots_t',['../solve_8h.html#a193322088f3626a33b9be04d7ec774bb',1,'solve.h']]]
+  ['color_5ft_0',['Color_t',['../color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fd',1,'color.h']]]
 ];

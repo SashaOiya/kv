@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fix_5fzero_0',['fix_zero',['../solve_8h.html#ad406f1551315e1213982dda988efb446',1,'solve.h']]]
+  ['epsilon_0',['EPSILON',['../solve_8h.html#a596344e5a2992d2beec43b76a6294de0',1,'solve.h']]]
 ];

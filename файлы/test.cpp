@@ -1,15 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <cmath>
-#include <stdarg.h>
-#include <string.h>
-#include <iostream>
-#include <stdint.h>
-#include <stdio.h>
-#include <cmath>
-#include <string.h>
-#include <ctype.h>
+
 #include "test.h"
 #include "solve.h"
 #include "checker.h"
@@ -21,7 +11,7 @@ bool Test_One_Case ( Coeff_Root *data, int n_test )
 {
 $   Coeff_t func_coeffs = data->coeffs;
 
-    Roots_t roots = {0} ;
+    Roots_t roots = { 0, 0, 0 };
     int n_roots = 0;
 
     printf ( "Test number: %d\t", n_test );
@@ -76,7 +66,7 @@ $   Coeff_Root data[] = {
         { {  1,   5, 6 }, {  -3, -2, ROOT_TWO } },
         { { 10, 100, 0 }, { -10,  0, ROOT_TWO } },
         { {  0,   0, 0 }, {   0,  0, ROOT_ALL } },
-        { {  1,   2, 3 }, {   1,  0, ROOT_ZER } },
+        { {  1,   2, 3 }, {   0,  0, ROOT_ZER } },
     };
 
     const int N_TEST = sizeof (data) / sizeof (data[0]);

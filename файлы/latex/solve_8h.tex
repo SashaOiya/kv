@@ -46,7 +46,7 @@ const double \mbox{\hyperlink{solve_8h_a596344e5a2992d2beec43b76a6294de0}{EPSILO
 \doxysubsubsection{\texorpdfstring{N\_Roots\_t}{N\_Roots\_t}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t}}}
 
-\begin{DoxyEnumFields}{Enumerator}
+Enumeration of the number of roots \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ROOT\_ZER@{ROOT\_ZER}!solve.h@{solve.h}}\index{solve.h@{solve.h}!ROOT\_ZER@{ROOT\_ZER}}}\Hypertarget{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f}\label{solve_8h_a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f} 
 ROOT\+\_\+\+ZER&\\
 \hline
@@ -87,7 +87,7 @@ The function compares two values
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-Returns tur if the values are not equal. 
+Returns true if the values are not equal. 
 
 Returns false if the values are equal 
 \end{DoxyNote}
@@ -99,6 +99,11 @@ Returns false if the values are equal
 
 The function compares two values
 
+\begin{DoxySeeAlso}{See also}
+bool \doxylink{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}{compare\+\_\+value\+\_\+min} ( double x1, double x2) 
+
+void \doxylink{solve_8h_ad406f1551315e1213982dda988efb446}{fix\+\_\+zero} ( double \texorpdfstring{$\ast$}{*}x )
+\end{DoxySeeAlso}
 
 \begin{DoxyParams}{Parameters}
 {\em x1} & The first value being compared \\
@@ -155,6 +160,11 @@ Passes new values to the elements of the root structure
 
 The function solves the quadratic equation
 
+\begin{DoxySeeAlso}{See also}
+bool \doxylink{solve_8h_aba3d40e81ad7592f186340bb82037e7c}{compare\+\_\+value\+\_\+max} ( double x1, double x2) 
+
+bool \doxylink{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}{compare\+\_\+value\+\_\+min} ( double x1, double x2)
+\end{DoxySeeAlso}
 
 \begin{DoxyParams}{Parameters}
 {\em \texorpdfstring{$\ast$}{*}func\+\_\+coeff} & Pointer to an element of the coefficient structure \\
@@ -176,3 +186,4 @@ Passes new values to the elements of the root structure
 \doxysubsubsection{\texorpdfstring{EPSILON}{EPSILON}}
 {\footnotesize\ttfamily const double EPSILON = 1e-\/6}
 
+A constant for comparing numbers 

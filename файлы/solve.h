@@ -25,7 +25,6 @@ enum N_Roots_t {
     ROOT_ERR = 4
 };
 
-
 //{----------------------------------------------------------------------------
 //!
 //! Structure of values and number of roots

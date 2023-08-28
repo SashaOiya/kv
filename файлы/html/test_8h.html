@@ -86,8 +86,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a743243184f6b2dd0a0066749195e190c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test_8h.html#a743243184f6b2dd0a0066749195e190c">Test_One_Case</a> (<a class="el" href="struct_coeff___root.html">Coeff_Root</a> *data)</td></tr>
-<tr class="separator:a743243184f6b2dd0a0066749195e190c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff1a637b8dfedeb2434bdd159785a26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test_8h.html#aeff1a637b8dfedeb2434bdd159785a26">Test_One_Case</a> (<a class="el" href="struct_coeff___root.html">Coeff_Root</a> *data, int n_test)</td></tr>
+<tr class="separator:aeff1a637b8dfedeb2434bdd159785a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93328e42d665e2ec0307633c3e041e90"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test_8h.html#a93328e42d665e2ec0307633c3e041e90">Test_All_Cases</a> ()</td></tr>
 <tr class="separator:a93328e42d665e2ec0307633c3e041e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -108,12 +108,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>The function does not accept any parameters</p>
 <p>Passes pre-entered values to the "Test_One_Case" function</p>
+<dl class="section see"><dt>See also</dt><dd>bool <a class="el" href="test_8h.html#aeff1a637b8dfedeb2434bdd159785a26">Test_One_Case</a> ( <a class="el" href="struct_coeff___root.html">Coeff_Root</a> *data )</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Displays the number of successfully completed tests </dd></dl>
 
 </div>
 </div>
-<a id="a743243184f6b2dd0a0066749195e190c" name="a743243184f6b2dd0a0066749195e190c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a743243184f6b2dd0a0066749195e190c">&#9670;&#160;</a></span>Test_One_Case()</h2>
+<a id="aeff1a637b8dfedeb2434bdd159785a26" name="aeff1a637b8dfedeb2434bdd159785a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeff1a637b8dfedeb2434bdd159785a26">&#9670;&#160;</a></span>Test_One_Case()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,15 +123,35 @@ Functions</h2></td></tr>
           <td class="memname">bool Test_One_Case </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_coeff___root.html">Coeff_Root</a> *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_test</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Does one test. Compares the return value from the solution with the reference solution</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="solve_8h.html#a193322088f3626a33b9be04d7ec774bb">N_Roots_t</a> <a class="el" href="solve_8h.html#a20a0605d735f37565a9213b2de28d8b9">solve_quadratic</a> ( <a class="el" href="struct_coeff__t.html">Coeff_t</a> *func_coeff, <a class="el" href="struct_roots__t.html">Roots_t</a> *roots ) </dd>
+<dd>
+<a class="el" href="solve_8h.html#a193322088f3626a33b9be04d7ec774bb">N_Roots_t</a> <a class="el" href="solve_8h.html#a20a0605d735f37565a9213b2de28d8b9">solve_quadratic</a> ( <a class="el" href="struct_coeff__t.html">Coeff_t</a> *func_coeff, <a class="el" href="struct_roots__t.html">Roots_t</a> *roots ) </dd>
+<dd>
+bool <a class="el" href="solve_8h.html#aba3d40e81ad7592f186340bb82037e7c">compare_value_max</a> ( double x1, double x2) </dd>
+<dd>
+bool <a class="el" href="solve_8h.html#acc4ef3b6dcb6ba0cbdbd95a04ae69743">compare_value_min</a> ( double x1, double x2) </dd>
+<dd>
+void <a class="el" href="color_8h.html#aec7f8b165b3177b9479c093c2f6bdd44">print_color</a> ( const char *c, enum <a class="el" href="color_8h.html#aac08c9c4b63f4dfa095c03fe6ecca1fd">Color_t</a> COLOR, ... )</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Pointer to the structure of reference coefficients and roots</td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to the structure of reference coefficients and roots </td></tr>
+    <tr><td class="paramname">n_test</td><td>Test number</td></tr>
   </table>
   </dd>
 </dl>

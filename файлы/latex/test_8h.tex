@@ -9,7 +9,7 @@ struct \mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{test_8h_a743243184f6b2dd0a0066749195e190c}{Test\+\_\+\+One\+\_\+\+Case}} (\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}data)
+bool \mbox{\hyperlink{test_8h_aeff1a637b8dfedeb2434bdd159785a26}{Test\+\_\+\+One\+\_\+\+Case}} (\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}data, int n\+\_\+test)
 \item 
 int \mbox{\hyperlink{test_8h_a93328e42d665e2ec0307633c3e041e90}{Test\+\_\+\+All\+\_\+\+Cases}} ()
 \end{DoxyCompactItemize}
@@ -26,20 +26,36 @@ The function does not accept any parameters
 
 Passes pre-\/entered values to the \"{}\+Test\+\_\+\+One\+\_\+\+Case\"{} function
 
+\begin{DoxySeeAlso}{See also}
+bool \doxylink{test_8h_aeff1a637b8dfedeb2434bdd159785a26}{Test\+\_\+\+One\+\_\+\+Case} ( \doxylink{struct_coeff___root}{Coeff\+\_\+\+Root} \texorpdfstring{$\ast$}{*}data )
+\end{DoxySeeAlso}
 \begin{DoxyNote}{Note}
 Displays the number of successfully completed tests 
 \end{DoxyNote}
-\Hypertarget{test_8h_a743243184f6b2dd0a0066749195e190c}\label{test_8h_a743243184f6b2dd0a0066749195e190c} 
+\Hypertarget{test_8h_aeff1a637b8dfedeb2434bdd159785a26}\label{test_8h_aeff1a637b8dfedeb2434bdd159785a26} 
 \index{test.h@{test.h}!Test\_One\_Case@{Test\_One\_Case}}
 \index{Test\_One\_Case@{Test\_One\_Case}!test.h@{test.h}}
 \doxysubsubsection{\texorpdfstring{Test\_One\_Case()}{Test\_One\_Case()}}
-{\footnotesize\ttfamily bool Test\+\_\+\+One\+\_\+\+Case (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Test\+\_\+\+One\+\_\+\+Case (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coeff___root}{Coeff\+\_\+\+Root}} \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int}]{n\+\_\+test }\end{DoxyParamCaption})}
 
 Does one test. Compares the return value from the solution with the reference solution
 
+\begin{DoxySeeAlso}{See also}
+\doxylink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t} \doxylink{solve_8h_a20a0605d735f37565a9213b2de28d8b9}{solve\+\_\+quadratic} ( \doxylink{struct_coeff__t}{Coeff\+\_\+t} \texorpdfstring{$\ast$}{*}func\+\_\+coeff, \doxylink{struct_roots__t}{Roots\+\_\+t} \texorpdfstring{$\ast$}{*}roots ) 
+
+\doxylink{solve_8h_a193322088f3626a33b9be04d7ec774bb}{N\+\_\+\+Roots\+\_\+t} \doxylink{solve_8h_a20a0605d735f37565a9213b2de28d8b9}{solve\+\_\+quadratic} ( \doxylink{struct_coeff__t}{Coeff\+\_\+t} \texorpdfstring{$\ast$}{*}func\+\_\+coeff, \doxylink{struct_roots__t}{Roots\+\_\+t} \texorpdfstring{$\ast$}{*}roots ) 
+
+bool \doxylink{solve_8h_aba3d40e81ad7592f186340bb82037e7c}{compare\+\_\+value\+\_\+max} ( double x1, double x2) 
+
+bool \doxylink{solve_8h_acc4ef3b6dcb6ba0cbdbd95a04ae69743}{compare\+\_\+value\+\_\+min} ( double x1, double x2) 
+
+void \doxylink{color_8h_aec7f8b165b3177b9479c093c2f6bdd44}{print\+\_\+color} ( const char \texorpdfstring{$\ast$}{*}c, enum \doxylink{color_8h_aac08c9c4b63f4dfa095c03fe6ecca1fd}{Color\+\_\+t} COLOR, ... )
+\end{DoxySeeAlso}
 
 \begin{DoxyParams}{Parameters}
-{\em data} & Pointer to the structure of reference coefficients and roots\\
+{\em data} & Pointer to the structure of reference coefficients and roots \\
+\hline
+{\em n\+\_\+test} & Test number\\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}

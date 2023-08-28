@@ -1,4 +1,4 @@
-#define MY_DEBUG
+//#define MY_DEBUG
 
 #ifdef MY_DEBUG
     #define $ printf ("%s:%d\n", __FILE__, __LINE__ );

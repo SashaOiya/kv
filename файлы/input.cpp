@@ -1,15 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <cmath>
-#include <stdarg.h>
-#include <string.h>
 #include <iostream>
-#include <stdint.h>
-#include <stdio.h>
-#include <cmath>
 #include <string.h>
-#include <ctype.h>
+
 #include "checker.h"
 #include "input.h"
 #include "duck_cat.h"
@@ -53,7 +45,7 @@ void get_one_coeff ( double *func_coeff)
             overflow_indicator = incorrect_input = buf_overflow ( MAX_BUF_VALUE, &i, incorrect_input );
         }
 
-        value = strtod ( buf, &end );
+        value = strtod ( buf, &end ); /// cppref
 
         ASSERT ( end );
 

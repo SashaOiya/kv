@@ -1,14 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include <cmath>
-#include <stdarg.h>
-#include <string.h>
-#include <iostream>
-#include <stdint.h>
-#include <stdio.h>
-#include <cmath>
-#include <string.h>
+
 #include <ctype.h>
 #include "checker.h"
 #include "solve.h"

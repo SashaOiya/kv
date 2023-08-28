@@ -1,0 +1,71 @@
+\doxysection{mem.\+h File Reference}
+\hypertarget{mem_8h}{}\label{mem_8h}\index{mem.h@{mem.h}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mem_8h_aa9d2ad8f75e39756916951e6682b208f}{check\+\_\+pointer}} (void \texorpdfstring{$\ast$}{*}func\+\_\+coeff, int line)
+\item 
+void \mbox{\hyperlink{mem_8h_acb52d9d4bea34449e423a48f4b5faa60}{my\+\_\+memset}} (void \texorpdfstring{$\ast$}{*}val, const char number, const size\+\_\+t value)
+\item 
+bool \mbox{\hyperlink{mem_8h_a454ac8018a79f1be4f6567cc8d2c51bf}{buf\+\_\+overflow}} (const int max\+\_\+buf\+\_\+value, int \texorpdfstring{$\ast$}{*}input\+\_\+element\+\_\+number, bool n\+\_\+overflow)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mem_8h_a454ac8018a79f1be4f6567cc8d2c51bf}\label{mem_8h_a454ac8018a79f1be4f6567cc8d2c51bf} 
+\index{mem.h@{mem.h}!buf\_overflow@{buf\_overflow}}
+\index{buf\_overflow@{buf\_overflow}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{buf\_overflow()}{buf\_overflow()}}
+{\footnotesize\ttfamily bool buf\+\_\+overflow (\begin{DoxyParamCaption}\item[{const int}]{max\+\_\+buf\+\_\+value,  }\item[{int \texorpdfstring{$\ast$}{*}}]{input\+\_\+element\+\_\+number,  }\item[{bool}]{n\+\_\+overflow }\end{DoxyParamCaption})}
+
+Checks the buffer for overflow
+
+\begin{DoxySeeAlso}{See also}
+void \doxylink{color_8h_aec7f8b165b3177b9479c093c2f6bdd44}{print\+\_\+color} ( const char \texorpdfstring{$\ast$}{*}c, enum \doxylink{color_8h_aac08c9c4b63f4dfa095c03fe6ecca1fd}{Color\+\_\+t} COLOR, ... )
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em mux\+\_\+buf\+\_\+value} & Maximum number of array elements \\
+\hline
+{\em \texorpdfstring{$\ast$}{*}input\+\_\+element\+\_\+number} & Pointer to an array element \\
+\hline
+{\em n\+\_\+overflow} & Number of array overflow\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Returns false if the array was not overflowed 
+
+Returns true if the array was overflowed 
+\end{DoxyNote}
+\Hypertarget{mem_8h_aa9d2ad8f75e39756916951e6682b208f}\label{mem_8h_aa9d2ad8f75e39756916951e6682b208f} 
+\index{mem.h@{mem.h}!check\_pointer@{check\_pointer}}
+\index{check\_pointer@{check\_pointer}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{check\_pointer()}{check\_pointer()}}
+{\footnotesize\ttfamily void check\+\_\+pointer (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{func\+\_\+coeff,  }\item[{int}]{line }\end{DoxyParamCaption})}
+
+The function checks the pointer to nullptr
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}func\+\_\+coeff} & Pointer to an element of the coefficient structure \\
+\hline
+{\em line} & Line number \\
+\hline
+\end{DoxyParams}
+\Hypertarget{mem_8h_acb52d9d4bea34449e423a48f4b5faa60}\label{mem_8h_acb52d9d4bea34449e423a48f4b5faa60} 
+\index{mem.h@{mem.h}!my\_memset@{my\_memset}}
+\index{my\_memset@{my\_memset}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{my\_memset()}{my\_memset()}}
+{\footnotesize\ttfamily void my\+\_\+memset (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{val,  }\item[{const char}]{number,  }\item[{const size\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+A function that fills a given number of array elements with a given number
+
+
+\begin{DoxyParams}{Parameters}
+{\em \texorpdfstring{$\ast$}{*}val} & Pointer to the beginning of an array of elements \\
+\hline
+{\em number} & The value that is assigned to the elements of the array \\
+\hline
+{\em value} & The number of array elements to fill in \\
+\hline
+\end{DoxyParams}

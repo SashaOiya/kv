@@ -7,13 +7,13 @@
 //!
 //}----------------------------------------------------------------------------
 enum Mode_t {
-    LINEAR      = 0,
-    QUADRATIC   = 1,
-    Error       = 2,
-    START       = 3,
-    HELP        = 4,
-    BYE         = 5,
-    OPTION_MEOW = 6
+    MODE_LINEAR      = 0,
+    MODE_QUADRATIC   = 1,
+    MODE_ERROR       = 2,
+    MODE_START       = 3,
+    MODE_HELP        = 4,
+    MODE_BYE         = 5,
+    MODE_OPTION_MEOW = 6
 };
 
 //{----------------------------------------------------------------------------
@@ -57,5 +57,17 @@ void print_cat_small ();
 //!
 //}----------------------------------------------------------------------------
 void print_cat_big ();
+
+//{----------------------------------------------------------------------------
+//!
+//! Fills the array with the input elements
+//!
+//! @see bool buf_overflow ( const int max_buf_value, int *input_element_number, bool n_overflow )
+//!
+//! @param *buf          Pointer to the beginning of the array to be filled
+//! @param max_buf_value Maximum number of array elements
+//!
+//}----------------------------------------------------------------------------
+void buf_input ( char *buf, const int max_buf_value );
 
 #endif

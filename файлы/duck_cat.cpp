@@ -1,14 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <cmath>
-#include <stdarg.h>
 #include <string.h>
-#include <iostream>
-#include <stdint.h>
-#include <stdio.h>
-#include <cmath>
-#include <string.h>
+
 #include <ctype.h>
 #include "checker.h"
 #include "duck_cat.h"
@@ -24,9 +16,9 @@ void print_color ( const char *line, enum Color_t COLOR, ... )
 
     SetConsoleTextAttribute ( hConsole, COLOR );
 
-    vprintf ( (char *)line, args );   //
+    vprintf ( line, args );
 
-    SetConsoleTextAttribute ( hConsole, 15 );
+    SetConsoleTextAttribute ( hConsole, COLOR_WHITE );
 
     va_end ( args );
 }
@@ -78,20 +70,11 @@ void print_duck ( const int n_duck )
 
 Mode_t interface_input ( bool start_indicator )
 {
-$   const int MAX_BUF_VALUE = 100 ;
-$   char buf[MAX_BUF_VALUE] = {0};
-$   bool n_overflow = false;
+$   const int max_buf_value_1 = 100;
+$   char buf[max_buf_value_1] = {0};
     int start_check = 0;
 
-    for ( int c = 0, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
-
-        if ( isspace ( c ) ) {
-            i--;
-        }
-
-$       buf[i] = (char)c;
-$       n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
-    }
+    buf_input ( buf, max_buf_value_1 );
 
     if ( start_indicator && strcmp ( buf, "start" ) == 0 ) {
 
@@ -99,62 +82,55 @@ $       n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
 
         do {
 
-$           const int MAX_BUF_VALUE =  13;
-$           char buf[MAX_BUF_VALUE] = {0};
-$           bool n_overflow = false;
+$           const int max_buf_value_2 =  13;
+$           char buf_2[max_buf_value_2] = {0};
 
-            for ( int c, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
+            buf_input ( buf, max_buf_value_2 );
 
-                if ( isspace ( c ) ) {
-                    i--;
-                }
+            if ( strcmp ( buf_2, "linear" ) == 0 ||
+                 strcmp ( buf_2, "1") == 0 ) {
 
-$               buf[i] = (char)c;
-$               n_overflow = buf_overflow ( MAX_BUF_VALUE, &i, n_overflow );
+$               return MODE_LINEAR;
             }
+            else if ( strcmp ( buf_2, "quadratic" ) == 0 ||
+                      strcmp ( buf_2, "2") == 0 ) {
 
-            if ( strcmp ( buf, "linear" ) == 0 ||      // func --
-                 strcmp ( buf, "1") == 0 ) {
-
-$               return LINEAR;
-            }
-            else if ( strcmp ( buf, "quadratic" ) == 0 ||
-                      strcmp ( buf, "2") == 0 ) {
-
-$               return QUADRATIC;
+$               return MODE_QUADRATIC;
             }
             else {
 
                 print_cat_small ();
 
-                start_check = ERROR;
+                start_check = MODE_ERROR;
             }
 
-        } while ( start_check == ERROR );
+        } while ( start_check == MODE_ERROR );
     }
     else if ( strcmp( buf, "help" ) == 0 ) {
 
         print_color ( "Here is a list of supported features :"
-                 "\n\n  start  \n\n  help  \n\n  bye-bye  \n\n  option-meow  \n\n", COLOR_BLUE );
+                      "\n\n  start  \n\n  help  \n\n  bye-bye  \n\n  option-meow  \n\n", COLOR_BLUE );
 
-$       return HELP;
+$       return MODE_HELP;
     }
     else if ( strcmp ( buf, "bye-bye" ) == 0 ) {
 
-        return BYE;
+        return MODE_BYE;
     }
     else if ( strcmp ( buf, "option-meow" ) == 0 ) {
 
         print_cat_big ();
 
-$       return OPTION_MEOW;
+$       return MODE_OPTION_MEOW;
     }
     else {
 
         print_color ( "This option was not found. Use the list of presented functions:\n", COLOR_BLUE );
 
-        return Error;
+        return MODE_ERROR;
     }
+
+    return MODE_ERROR;
 }
 
 void print_cat_small ()
@@ -171,29 +147,28 @@ void print_cat_small ()
 
 void print_cat_big ()
 {
-    print_color ( "   ,';,               ,';,                                     \n"
-                  "  ,' , :;             ; ,,.;                                   \n"
-                  "  | |:; :;           ; ;:|.|                                   \n"
-                  "| |::; ';,,,,,,,,,'  ;:|.|    ,,,;;;;;;;;,,,                   \n"
-                  "; |''  ___      ___   ';.;,,''             ''';,,,             \n"
-                  "',:   /   \    /   \    .;.                      '';,          \n"
-                  ";    /    |    |    \     ;,                        ';,        \n"
-                  ";    |    /|    |\    |    :|                          ';,     \n"
-                  "|    |    \|    |/    |    :|     ,,,,,,,               ';,    \n"
-                  "|     \ ___| __ |____/     :;  ,''                        ;,   \n"
-                  ";           /  \          :; ,'                           :;   \n"
-                  "',        `----'        :; |'                            :|    \n"
-                  "',,  `----------'  ..;',|'                             :|      \n"
-                  ",'  ',,,,,,,,,,,;;;;''  |'                              :;     \n"
-                  ",'  ,,,,                  |,                              :;   \n"
-                  "| ,'   :;, ,,''''''''''   '|.   ...........                ';, \n"
-                  ";       :;|               ,,';;;''''''                      ';,\n"
-                  "',,,,,;;;|.............,'                          ....      ;,\n"
-                  "       ''''''''''''|        .............;;;;;;;''''',    ':;  \n"
-                  "                    |;;;;;;;;'''''''''''''             ;    :| \n"
-                  "                                                    ,,,'     :;\n"
-                  "                                        ,,,,,,,,,,''       .;' \n"
-                  "...............................................................\n", COLOR_PINK );
+    print_color ( "    /\\_____/\\    \n"
+                  "   /  o   o  \\    \n"
+                  "  ( ==  ^  == )    \n"
+                  "   )         (     \n"
+                  "  (           )    \n"
+                  " ( (  )   (  ) )   \n"
+                  "(__(__)___(__)__)  \n", COLOR_PINK );
+}
+
+void buf_input ( char *buf, const int max_buf_value )
+{
+$   bool n_overflow = false;
+
+    for ( int c, i = 0; ( c = getchar() ) != '\n' && c != EOF; ++i ) {
+
+        if ( isspace ( c ) ) {
+            i--;
+        }
+
+$       buf[i] = (char)c;
+$       n_overflow = buf_overflow ( max_buf_value, &i, n_overflow );
+    }
 }
 
 

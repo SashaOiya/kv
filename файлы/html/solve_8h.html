@@ -130,6 +130,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enumeration of the number of roots </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f" name="a193322088f3626a33b9be04d7ec774bba53db1cc2d26d637753dcdb99d800193f"></a>ROOT_ZER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3" name="a193322088f3626a33b9be04d7ec774bba512a313a9cc629d9d2a857b539ed64c3"></a>ROOT_ONE&#160;</td><td class="fielddoc"></td></tr>
@@ -174,7 +175,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Returns tur if the values are not equal. </dd>
+<dl class="section note"><dt>Note</dt><dd>Returns true if the values are not equal. </dd>
 <dd>
 Returns false if the values are equal </dd></dl>
 
@@ -206,6 +207,9 @@ Returns false if the values are equal </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The function compares two values</p>
+<dl class="section see"><dt>See also</dt><dd>bool <a class="el" href="solve_8h.html#acc4ef3b6dcb6ba0cbdbd95a04ae69743">compare_value_min</a> ( double x1, double x2) </dd>
+<dd>
+void <a class="el" href="solve_8h.html#ad406f1551315e1213982dda988efb446">fix_zero</a> ( double *x )</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x1</td><td>The first value being compared </td></tr>
@@ -310,6 +314,9 @@ Passes new values to the elements of the root structure </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>The function solves the quadratic equation</p>
+<dl class="section see"><dt>See also</dt><dd>bool <a class="el" href="solve_8h.html#aba3d40e81ad7592f186340bb82037e7c">compare_value_max</a> ( double x1, double x2) </dd>
+<dd>
+bool <a class="el" href="solve_8h.html#acc4ef3b6dcb6ba0cbdbd95a04ae69743">compare_value_min</a> ( double x1, double x2)</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*func_coeff</td><td>Pointer to an element of the coefficient structure </td></tr>
@@ -335,6 +342,7 @@ Passes new values to the elements of the root structure </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>A constant for comparing numbers </p>
 
 </div>
 </div>

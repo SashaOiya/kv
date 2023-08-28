@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['get_5fcoeff_0',['get_coeff',['../input_8h.html#a336254c0c88fa8880625ed3a94c8c5ae',1,'input.h']]],
-  ['get_5fone_5fcoeff_1',['get_one_coeff',['../input_8h.html#afe1c70315aa0844139a628d8503dfe5f',1,'input.h']]]
+  ['buf_5finput_0',['buf_input',['../duck__cat_8h.html#ac7e32a5a9cde417d8a440ccbfdb3b177',1,'duck_cat.h']]],
+  ['buf_5foverflow_1',['buf_overflow',['../mem_8h.html#a454ac8018a79f1be4f6567cc8d2c51bf',1,'mem.h']]]
 ];
