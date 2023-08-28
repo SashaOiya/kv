@@ -61,10 +61,7 @@ Do not be alarmed if you see cats or parts of a duck while using the program!!! 
  
  # Setup from sources:
  
- * Run git clone https://github.com/SashaOiya/kv/tree/main/файлы **--depth 1** (or clone your own fork of the repository)
- * Go into the cloned folder with *'cd kv'*
- * Run *'npm install'* (only has to be done before first start or when you change the source code)
- * Run *'npm start'*
+ * Run **git clone https://github.com/SashaOiya/kv **(or clone your own fork of the repository)
  
  After downloading to the command line, you need to write 'make.bat' and after executing the command write 'a.exe '. 
 Then follow the instructions in the program.
