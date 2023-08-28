@@ -1,4 +1,4 @@
-## Description
+# Description
 
  This program is designed to solve equations. Quadratic and linear equations are supported.
 
