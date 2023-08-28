@@ -7,11 +7,12 @@
 #include "input.h"
 #include "output.h"
 #include "test.h"
+#include "color.h"
 
 int main ( )
 {
-    printf ( "Hi. This program solves both a quadratic equation and a linear one.\n"
-             "Write 'help' to see the list of available functions:\n" );
+    print_color ( "Hi. This program solves both a quadratic equation and a linear one.\n"
+                  "Write 'help' to see the list of available functions:\n", COLOR_BLUE );
 
     bool start_indicator = true;
     int equation_type = 0;
@@ -61,6 +62,8 @@ $               break;
     } while ( n_roots == ROOT_ERR );
 
     output_roots ( &roots, n_roots );
+
+    print_color ( "Write 'help' to see the list of available functions:\n", COLOR_BLUE );
 
 $   do {
         equation_type = interface_input ( start_indicator );

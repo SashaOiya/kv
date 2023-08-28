@@ -85,7 +85,7 @@ $   char buf[max_buf_value_1] = {0};
 $           const int max_buf_value_2 =  13;
 $           char buf_2[max_buf_value_2] = {0};
 
-            buf_input ( buf, max_buf_value_2 );
+            buf_input ( buf_2, max_buf_value_2 );
 
             if ( strcmp ( buf_2, "linear" ) == 0 ||
                  strcmp ( buf_2, "1") == 0 ) {

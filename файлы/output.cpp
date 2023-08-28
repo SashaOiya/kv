@@ -4,24 +4,25 @@
 #include <string.h>
 #include <ctype.h>
 #include "output.h"
+#include "color.h"
 
 void output_roots ( const Roots_t *roots, N_Roots_t n_roots )
 {
     switch ( n_roots ) {
         case ROOT_ZER:
-            printf ( "zero roots\n" );
+            print_color ( "zero roots\n", COLOR_BLUE );
             break;
         case ROOT_ONE:
-            printf ( "one root : x = %g\n", roots->x1 );
+            print_color ( "one root : x = %g\n", COLOR_BLUE, roots->x1 );
             break;
         case ROOT_TWO:
-            printf ( "roots : x1 = %g\tx2 = %g\n", roots->x1, roots->x2 );
+            print_color ( "roots : x1 = %g\tx2 = %g\n", COLOR_BLUE, roots->x1, roots->x2 );
             break;
         case ROOT_ALL:
-            printf ( "all numbers\n" );
+            print_color ( "roots are all numbers\n", COLOR_BLUE );
             break;
         case ROOT_ERR:
-            printf ( " 'wtf' error\n" );
+            print_color ( " 'wtf' error\n", COLOR_BLUE );
             *(int*)0 = 0;
             break;
         default:
